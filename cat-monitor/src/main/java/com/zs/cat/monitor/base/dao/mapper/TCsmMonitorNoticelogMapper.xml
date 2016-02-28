@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bestpay.bpcs.monitor.base.dao.TCsmMonitorNoticelogMapper" >
+  <resultMap id="BaseResultMap" type="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorNoticelog" >
+    <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+    <result column="MONITOR_NAME" property="monitorName" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="NOTICE_TYPE" property="noticeType" jdbcType="VARCHAR" />
+    <result column="NOTICE_OBJ" property="noticeObj" jdbcType="VARCHAR" />
+    <result column="STAT" property="stat" jdbcType="VARCHAR" />
+    <result column="NOTICE_CONTENT" property="noticeContent" jdbcType="VARCHAR" />
+    <result column="NOTICE_TIME" property="noticeTime" jdbcType="TIMESTAMP" />
+    <result column="MONITOR_ID" property="monitorId" jdbcType="VARCHAR" />
+    <result column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOG_ID, MONITOR_NAME, STAFF_NAME, NOTICE_TYPE, NOTICE_OBJ, STAT, NOTICE_CONTENT, 
+    NOTICE_TIME, MONITOR_ID, STAFF_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CSM_MONITOR_NOTICELOG
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_CSM_MONITOR_NOTICELOG
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorNoticelog" >
+    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="logId">
+      select SQ_CSM_MONITOR_NOTICELOG_ID.nextval  as logId from dual
+    </selectKey>
+    insert into T_CSM_MONITOR_NOTICELOG (LOG_ID, MONITOR_NAME, STAFF_NAME, 
+      NOTICE_TYPE, NOTICE_OBJ, STAT, 
+      NOTICE_CONTENT, NOTICE_TIME, MONITOR_ID, 
+      STAFF_ID)
+    values (to_char(sysdate,'yymmddhh24miss')||lpad(SQ_CSM_MONITOR_NOTICELOG_ID.nextval,8,0), #{monitorName}, #{staffName},
+      #{noticeType,jdbcType=VARCHAR}, #{noticeObj,jdbcType=VARCHAR}, #{stat,jdbcType=VARCHAR}, 
+      #{noticeContent,jdbcType=VARCHAR}, #{noticeTime,jdbcType=TIMESTAMP}, #{monitorId,jdbcType=VARCHAR},
+      #{staffId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorNoticelog" >
+    insert into T_CSM_MONITOR_NOTICELOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="monitorName != null" >
+        MONITOR_NAME,
+      </if>
+      <if test="staffName != null" >
+        STAFF_NAME,
+      </if>
+      <if test="noticeType != null" >
+        NOTICE_TYPE,
+      </if>
+      <if test="noticeObj != null" >
+        NOTICE_OBJ,
+      </if>
+      <if test="stat != null" >
+        STAT,
+      </if>
+      <if test="noticeContent != null" >
+        NOTICE_CONTENT,
+      </if>
+      <if test="noticeTime != null" >
+        NOTICE_TIME,
+      </if>
+      <if test="monitorId != null" >
+        MONITOR_ID,
+      </if>
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorName != null" >
+        #{monitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeType != null" >
+        #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeObj != null" >
+        #{noticeObj,jdbcType=VARCHAR},
+      </if>
+      <if test="stat != null" >
+        #{stat,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null" >
+        #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="monitorId != null" >
+        #{monitorId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorNoticelog" >
+    update T_CSM_MONITOR_NOTICELOG
+    <set >
+      <if test="monitorName != null" >
+        MONITOR_NAME = #{monitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeType != null" >
+        NOTICE_TYPE = #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeObj != null" >
+        NOTICE_OBJ = #{noticeObj,jdbcType=VARCHAR},
+      </if>
+      <if test="stat != null" >
+        STAT = #{stat,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null" >
+        NOTICE_CONTENT = #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        NOTICE_TIME = #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="monitorId != null" >
+        MONITOR_ID = #{monitorId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        STAFF_ID = #{staffId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorNoticelog" >
+    update T_CSM_MONITOR_NOTICELOG
+    set MONITOR_NAME = #{monitorName,jdbcType=VARCHAR},
+      STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      NOTICE_TYPE = #{noticeType,jdbcType=VARCHAR},
+      NOTICE_OBJ = #{noticeObj,jdbcType=VARCHAR},
+      STAT = #{stat,jdbcType=VARCHAR},
+      NOTICE_CONTENT = #{noticeContent,jdbcType=VARCHAR},
+      NOTICE_TIME = #{noticeTime,jdbcType=TIMESTAMP},
+      MONITOR_ID = #{monitorId,jdbcType=VARCHAR},
+      STAFF_ID = #{staffId,jdbcType=VARCHAR}
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据人员ID、监控ID、通知方式获取该人员当天发送过的通知次数  -->
+  <select id="checkPreviewNotice" resultType="int" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorNoticelog">
+    select
+      count(*)
+    FROM T_CSM_MONITOR_NOTICELOG
+    <where>
+      NOTICE_TIME between TRUNC(SYSDATE) and TRUNC(SYSDATE)+1-1/86400
+      <if test="staffId != null and staffId != ''">
+        AND STAFF_ID = #{staffId}
+      </if>
+      <if test="monitorId != null and monitorId != ''">
+        AND MONITOR_ID = #{monitorId}
+      </if>
+      <if test="noticeType != null and noticeType != ''">
+        AND NOTICE_TYPE = #{noticeType}
+      </if>
+    </where>
+  </select>
+</mapper>

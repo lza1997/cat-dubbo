@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bestpay.bpcs.monitor.base.dao.TCscMonitorStaffMapper" >
+  <resultMap id="BaseResultMap" type="com.bestpay.bpcs.monitor.base.bean.TCscMonitorStaff" >
+    <id column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="STAFF_TEL" property="staffTel" jdbcType="VARCHAR" />
+    <result column="STAFF_EMAIL" property="staffEmail" jdbcType="VARCHAR" />
+    <result column="STAT" property="stat" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STAFF_ID, STAFF_NAME, STAFF_TEL, STAFF_EMAIL, STAT, MEMO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CSC_MONITOR_STAFF
+    where STAFF_ID = #{staffId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_CSC_MONITOR_STAFF
+    where STAFF_ID = #{staffId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorStaff" >
+  	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="staffId"> 
+         select   CONCAT(to_char(current_timestamp(5),'yymmddhh24missSSS'),SQ_CSC_MONITOR_STAFF_ID.nextval)  as staffId from dual 
+     </selectKey> 
+    insert into T_CSC_MONITOR_STAFF (STAFF_ID, STAFF_NAME, STAFF_TEL, 
+      STAFF_EMAIL, STAT, MEMO
+      )
+    values (#{staffId,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{staffTel,jdbcType=VARCHAR}, 
+      #{staffEmail,jdbcType=VARCHAR}, #{stat,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorStaff" >
+    insert into T_CSC_MONITOR_STAFF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+      <if test="staffName != null" >
+        STAFF_NAME,
+      </if>
+      <if test="staffTel != null" >
+        STAFF_TEL,
+      </if>
+      <if test="staffEmail != null" >
+        STAFF_EMAIL,
+      </if>
+      <if test="stat != null" >
+        STAT,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffTel != null" >
+        #{staffTel,jdbcType=VARCHAR},
+      </if>
+      <if test="staffEmail != null" >
+        #{staffEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="stat != null" >
+        #{stat,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorStaff" >
+    update T_CSC_MONITOR_STAFF
+    <set >
+      <if test="staffName != null" >
+        STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffTel != null" >
+        STAFF_TEL = #{staffTel,jdbcType=VARCHAR},
+      </if>
+      <if test="staffEmail != null" >
+        STAFF_EMAIL = #{staffEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="stat != null" >
+        STAT = #{stat,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorStaff" >
+    update T_CSC_MONITOR_STAFF
+    set STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      STAFF_TEL = #{staffTel,jdbcType=VARCHAR},
+      STAFF_EMAIL = #{staffEmail,jdbcType=VARCHAR},
+      STAT = #{stat,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR}
+    where STAFF_ID = #{staffId,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据条件查询监控人员列表  -->
+  <select id="getMonitorStaffPage" resultMap="BaseResultMap" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorStaff">
+    select
+    <include refid="Base_Column_List" />
+    FROM T_CSC_MONITOR_STAFF
+    <where>
+      1=1
+      <if test="staffName != null and staffName != ''">
+        AND STAFF_NAME LIKE '%${staffName}%'
+      </if>
+      <if test="staffTel != null and staffTel != ''">
+        AND STAFF_TEL LIKE '%${staffTel}%'
+      </if>
+      <if test="staffEmail != null and staffEmail != ''">
+        AND STAFF_EMAIL LIKE '%${staffEmail}%'
+      </if>
+      <if test="stat != null and stat != ''">
+        AND STAT = #{stat,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <!--获取监控人员列表（下拉框）  -->
+  <select id="getMonitorStaffJson" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    FROM T_CSC_MONITOR_STAFF
+    <where>
+      STAT='S0A'
+    </where>
+  </select>
+
+  <!--批量删除监控人员 -->
+  <delete id="deleteMonitorStaffBatch" parameterType="java.lang.String">
+    DELETE FROM T_CSC_MONITOR_STAFF where STAFF_ID in
+    <foreach item="idItem" collection="array" open="(" separator="," close=")">
+      #{idItem}
+    </foreach>
+  </delete>
+</mapper>

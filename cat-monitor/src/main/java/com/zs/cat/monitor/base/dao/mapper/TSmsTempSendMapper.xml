@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bestpay.bpcs.monitor.base.dao.TSmsTempSendMapper" >
+  <resultMap id="BaseResultMap" type="com.bestpay.bpcs.monitor.base.bean.TSmsTempSend" >
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="RECEIVER" property="receiver" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="W_FLAG" property="wFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CREATE_TIME, RECEIVER, CONTENT, W_FLAG
+  </sql>
+  <insert id="insert" parameterType="com.bestpay.bpcs.monitor.base.bean.TSmsTempSend" >
+    insert into T_SMS_TEMP_SEND (CREATE_TIME, RECEIVER, CONTENT, 
+      W_FLAG)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{receiver,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{wFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bestpay.bpcs.monitor.base.bean.TSmsTempSend" >
+    insert into T_SMS_TEMP_SEND
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="receiver != null" >
+        RECEIVER,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="wFlag != null" >
+        W_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiver != null" >
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="wFlag != null" >
+        #{wFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateTableFlag" parameterType="map" >
+    <![CDATA[
+      update
+      ORAMAINTAIN.T_SMS_TEMP_SEND
+      set w_flag = '1'
+      where create_time >= to_date(#{currentTime}, 'yyyy-mm-dd HH24:mi:ss') - #{queryTime}/1440 AND
+      create_time < to_date(#{currentTime}, 'yyyy-mm-dd HH24:mi:ss') AND
+      w_flag <> '1'
+    ]]>
+  </update>
+
+  <select id="getSmsToSenList" resultMap="BaseResultMap" parameterType="map">
+    <![CDATA[
+      select
+        *
+      from
+      ORAMAINTAIN.T_SMS_TEMP_SEND
+      where create_time >= to_date(#{currentTime}, 'yyyy-mm-dd HH24:mi:ss') - #{queryTime}/1440 AND
+      create_time < to_date(#{currentTime}, 'yyyy-mm-dd HH24:mi:ss') AND
+      w_flag <> '1'
+    ]]>
+  </select>
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bestpay.bpcs.monitor.base.dao.TCscMonitorConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.bestpay.bpcs.monitor.base.bean.TCscMonitorConfig" >
+    <id column="MONITOR_ID" property="monitorId" />
+    <result column="MONITOR_CODE" property="monitorCode"  />
+    <result column="MONITOR_SEGMENT" property="monitorSegment" jdbcType="VARCHAR" />
+    <result column="MONITOR_NAME" property="monitorName" jdbcType="VARCHAR" />
+    <result column="MONITOR_DESC" property="monitorDesc" jdbcType="VARCHAR" />
+    <result column="MONITOR_SCRIPT" property="monitorScript" jdbcType="VARCHAR" />
+    <result column="THRESHOLD" property="threshold" jdbcType="DECIMAL" />
+    <result column="COMPARE_TYPE" property="compareType" jdbcType="VARCHAR" />
+    <result column="NOTICE_NUM" property="noticeNum" jdbcType="DECIMAL" />
+    <result column="STAT" property="stat" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MONITOR_ID, MONITOR_CODE, MONITOR_SEGMENT, MONITOR_NAME, MONITOR_DESC, MONITOR_SCRIPT, 
+    THRESHOLD, COMPARE_TYPE, NOTICE_NUM, STAT, MEMO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CSC_MONITOR_CONFIG
+    where MONITOR_ID = #{monitorId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByMonitorCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CSC_MONITOR_CONFIG
+    where MONITOR_CODE = #{monitorCode,jdbcType=VARCHAR}
+    AND STAT = 'S0A'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_CSC_MONITOR_CONFIG
+    where MONITOR_ID = #{monitorId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorConfig" >
+  	 <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="monitorId"> 
+         select   CONCAT(to_char(current_timestamp(5),'yymmddhh24missSSS'),SQ_CSC_MONITOR_CONFIG_ID.nextval)  as monitorId from dual 
+     </selectKey>
+    insert into T_CSC_MONITOR_CONFIG (MONITOR_ID, MONITOR_CODE, MONITOR_SEGMENT, 
+      MONITOR_NAME, MONITOR_DESC, MONITOR_SCRIPT, 
+      THRESHOLD, COMPARE_TYPE, NOTICE_NUM, 
+      STAT, MEMO)
+    values (#{monitorId,jdbcType=VARCHAR}, #{monitorCode,jdbcType=VARCHAR}, #{monitorSegment,jdbcType=VARCHAR}, 
+      #{monitorName,jdbcType=VARCHAR}, #{monitorDesc,jdbcType=VARCHAR}, #{monitorScript,jdbcType=VARCHAR}, 
+      #{threshold,jdbcType=DECIMAL}, #{compareType,jdbcType=VARCHAR}, #{noticeNum,jdbcType=DECIMAL}, 
+      #{stat,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorConfig" >
+    insert into T_CSC_MONITOR_CONFIG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="monitorId != null" >
+        MONITOR_ID,
+      </if>
+      <if test="monitorCode != null" >
+        MONITOR_CODE,
+      </if>
+      <if test="monitorSegment != null" >
+        MONITOR_SEGMENT,
+      </if>
+      <if test="monitorName != null" >
+        MONITOR_NAME,
+      </if>
+      <if test="monitorDesc != null" >
+        MONITOR_DESC,
+      </if>
+      <if test="monitorScript != null" >
+        MONITOR_SCRIPT,
+      </if>
+      <if test="threshold != null" >
+        THRESHOLD,
+      </if>
+      <if test="compareType != null" >
+        COMPARE_TYPE,
+      </if>
+      <if test="noticeNum != null" >
+        NOTICE_NUM,
+      </if>
+      <if test="stat != null" >
+        STAT,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="monitorId != null" >
+        #{monitorId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorCode != null" >
+        #{monitorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorSegment != null" >
+        #{monitorSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorName != null" >
+        #{monitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorDesc != null" >
+        #{monitorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorScript != null" >
+        #{monitorScript,jdbcType=VARCHAR},
+      </if>
+      <if test="threshold != null" >
+        #{threshold,jdbcType=DECIMAL},
+      </if>
+      <if test="compareType != null" >
+        #{compareType,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeNum != null" >
+        #{noticeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="stat != null" >
+        #{stat,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorConfig" >
+    update T_CSC_MONITOR_CONFIG
+    <set >
+      <if test="monitorCode != null" >
+        MONITOR_CODE = #{monitorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorSegment != null" >
+        MONITOR_SEGMENT = #{monitorSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorName != null" >
+        MONITOR_NAME = #{monitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorDesc != null" >
+        MONITOR_DESC = #{monitorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorScript != null" >
+        MONITOR_SCRIPT = #{monitorScript,jdbcType=VARCHAR},
+      </if>
+      <if test="threshold != null" >
+        THRESHOLD = #{threshold,jdbcType=DECIMAL},
+      </if>
+      <if test="compareType != null" >
+        COMPARE_TYPE = #{compareType,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeNum != null" >
+        NOTICE_NUM = #{noticeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="stat != null" >
+        STAT = #{stat,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MONITOR_ID = #{monitorId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorConfig" >
+    update T_CSC_MONITOR_CONFIG
+    set MONITOR_CODE = #{monitorCode,jdbcType=VARCHAR},
+      MONITOR_SEGMENT = #{monitorSegment,jdbcType=VARCHAR},
+      MONITOR_NAME = #{monitorName,jdbcType=VARCHAR},
+      MONITOR_DESC = #{monitorDesc,jdbcType=VARCHAR},
+      MONITOR_SCRIPT = #{monitorScript,jdbcType=VARCHAR},
+      THRESHOLD = #{threshold,jdbcType=DECIMAL},
+      COMPARE_TYPE = #{compareType,jdbcType=VARCHAR},
+      NOTICE_NUM = #{noticeNum,jdbcType=DECIMAL},
+      STAT = #{stat,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR}
+    where MONITOR_ID = #{monitorId,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询监控定义总数  -->
+  <select id="getMonitorConfigCount" resultType="int">
+    select
+      count(*)
+    FROM T_CSC_MONITOR_CONFIG
+  </select>
+
+  <!--根据条件查询监控定义列表  -->
+  <select id="getMonitorConfigPage" resultMap="BaseResultMap" parameterType="com.bestpay.bpcs.monitor.base.bean.TCscMonitorConfig">
+    select
+    <include refid="Base_Column_List" />
+    FROM T_CSC_MONITOR_CONFIG
+    <where>
+      1=1
+      <if test="monitorName != null and monitorName != ''">
+        AND MONITOR_NAME LIKE '%${monitorName}%'
+      </if>
+      <if test="monitorCode != null and monitorCode != ''">
+        AND MONITOR_CODE LIKE '%${monitorCode}%'
+      </if>
+      <if test="threshold != null and threshold != ''">
+        AND THRESHOLD = #{threshold,jdbcType=DECIMAL}
+      </if>
+      <if test="monitorSegment != null and monitorSegment != ''">
+        AND MONITOR_SEGMENT = #{monitorSegment,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <!--批量删除监控定义 -->
+  <delete id="deleteMonitorConfigBatch" parameterType="java.lang.String">
+    DELETE FROM T_CSC_MONITOR_CONFIG where MONITOR_ID in
+    <foreach item="idItem" collection="array" open="(" separator="," close=")">
+      #{idItem}
+    </foreach>
+  </delete>
+</mapper>

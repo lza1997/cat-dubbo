@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bestpay.bpcs.monitor.base.dao.TCsmMonitorDataMapper" >
+  <resultMap id="BaseResultMap" type="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorData" >
+    <id column="DATA_ID" property="dataId" jdbcType="VARCHAR" />
+    <result column="MONITOR_CODE" property="monitorCode" jdbcType="VARCHAR" />
+    <result column="MONITOR_OBJ" property="monitorObj" jdbcType="VARCHAR" />
+    <result column="MONITOR_SEGMENT" property="monitorSegment" jdbcType="VARCHAR" />
+    <result column="MONITOR_TIME" property="monitorTime" jdbcType="TIMESTAMP" />
+    <result column="PRTN_ID" property="prtnId" jdbcType="VARCHAR" />
+    <result column="OBJ_TYPE" property="objType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DATA_ID, MONITOR_CODE, MONITOR_OBJ, MONITOR_SEGMENT, MONITOR_TIME, PRTN_ID, OBJ_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CSM_MONITOR_DATA
+    where DATA_ID = #{dataId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_CSM_MONITOR_DATA
+    where DATA_ID = #{dataId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorData" >
+    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="dataId"> 
+         select   CONCAT(to_char(current_timestamp(5),'yymmddhh24missSSS'),SQ_CSM_MONITOR_DATA_ID.nextval)  as dataId from dual
+     </selectKey> 
+    
+    insert into T_CSM_MONITOR_DATA (DATA_ID, MONITOR_CODE, MONITOR_OBJ, 
+      MONITOR_SEGMENT, MONITOR_TIME, PRTN_ID, 
+      OBJ_TYPE)
+    values (#{dataId,jdbcType=VARCHAR}, #{monitorCode,jdbcType=VARCHAR}, #{monitorObj,jdbcType=VARCHAR}, 
+      #{monitorSegment,jdbcType=VARCHAR}, #{monitorTime,jdbcType=TIMESTAMP}, #{prtnId,jdbcType=VARCHAR}, 
+      #{objType,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorData" >
+    insert into T_CSM_MONITOR_DATA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataId != null" >
+        DATA_ID,
+      </if>
+      <if test="monitorCode != null" >
+        MONITOR_CODE,
+      </if>
+      <if test="monitorObj != null" >
+        MONITOR_OBJ,
+      </if>
+      <if test="monitorSegment != null" >
+        MONITOR_SEGMENT,
+      </if>
+      <if test="monitorTime != null" >
+        MONITOR_TIME,
+      </if>
+      <if test="prtnId != null" >
+        PRTN_ID,
+      </if>
+      <if test="objType != null" >
+        OBJ_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataId != null" >
+        #{dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorCode != null" >
+        #{monitorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorObj != null" >
+        #{monitorObj,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorSegment != null" >
+        #{monitorSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTime != null" >
+        #{monitorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prtnId != null" >
+        #{prtnId,jdbcType=VARCHAR},
+      </if>
+      <if test="objType != null" >
+        #{objType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorData" >
+    update T_CSM_MONITOR_DATA
+    <set >
+      <if test="monitorCode != null" >
+        MONITOR_CODE = #{monitorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorObj != null" >
+        MONITOR_OBJ = #{monitorObj,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorSegment != null" >
+        MONITOR_SEGMENT = #{monitorSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTime != null" >
+        MONITOR_TIME = #{monitorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prtnId != null" >
+        PRTN_ID = #{prtnId,jdbcType=VARCHAR},
+      </if>
+      <if test="objType != null" >
+        OBJ_TYPE = #{objType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DATA_ID = #{dataId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorData" >
+    update T_CSM_MONITOR_DATA
+    set MONITOR_CODE = #{monitorCode,jdbcType=VARCHAR},
+      MONITOR_OBJ = #{monitorObj,jdbcType=VARCHAR},
+      MONITOR_SEGMENT = #{monitorSegment,jdbcType=VARCHAR},
+      MONITOR_TIME = #{monitorTime,jdbcType=TIMESTAMP},
+      PRTN_ID = #{prtnId,jdbcType=VARCHAR},
+      OBJ_TYPE = #{objType,jdbcType=VARCHAR}
+    where DATA_ID = #{dataId,jdbcType=VARCHAR}
+  </update>
+  
+  <!--根据条件查询监控数据列表  -->
+  <select id="getMonitorDataPage" resultMap="BaseResultMap" parameterType="com.bestpay.bpcs.monitor.base.bean.TCsmMonitorData">
+       select 
+       <include refid="Base_Column_List" />
+       FROM T_CSM_MONITOR_DATA 
+       <where>
+       	    1=1
+       	  <if test="dataId != null and dataId != ''">
+              AND DATA_ID LIKE '%${dataId}%'
+          </if>
+          <if test="monitorCode != null and monitorCode != ''">
+              AND MONITOR_CODE LIKE '%${monitorCode}%'
+          </if>
+           <if test="monitorObj != null and monitorObj != ''">
+              AND MONITOR_OBJ LIKE '%${monitorObj}%'
+          </if>
+          <if test="monitorSegment != null and monitorSegment != ''">
+              AND MONITOR_SEGMENT = #{monitorSegment,jdbcType=VARCHAR}
+          </if>
+           <if test="prtnId != null and prtnId != ''">
+              AND PRTN_ID LIKE '%${prtnId}%'
+          </if>
+          <if test="objType != null and objType != ''">
+              AND OBJ_TYPE LIKE '%${objType}%'
+          </if>
+       </where>
+  </select>
+</mapper>

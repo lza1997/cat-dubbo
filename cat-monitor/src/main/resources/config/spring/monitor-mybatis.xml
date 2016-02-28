@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       	http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+       	">
+	<!--数据源  write-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${ds.jdbcDriver}"/>
+        <property name="jdbcUrl" value="${ds.jdbcUrl}"/>
+        <property name="user" value="${ds.jdbcUsername}"/>
+        <property name="password" value="${ds.jdbcPassword}"/>
+        <property name="maxPoolSize" value="${ds.maxPoolSize}"/>
+        <property name="minPoolSize" value="${ds.minPoolSize}"/>
+        <property name="maxIdleTime" value="${ds.maxIdleTime}"/>
+    </bean>
+    
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:config/mybatis/monitor-mybatis-config.xml"/>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath*:com/bestpay/bpcs/monitor/base/dao/mapper/*.xml</value>
+                <!-- 定时任务需要的mapper -->
+                <value>classpath*:com/bestpay/bpcs/schedule/config/dao/mapper/*.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 定时任务需要 -->
+        <property name="basePackage" value="com.bestpay.bpcs.monitor.base.dao; com.bestpay.bpcs.schedule.config.dao"/>
+    </bean>
+    
+    <!-- 声明式事务 -->
+    <bean id="monitor_transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<tx:advice id="monitor_txAdvice" transaction-manager="monitor_transactionManager">
+		<tx:attributes>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="BusinessException.class"/>
+		    <tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="BusinessException.class" />
+		    <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="BusinessException.class"/>
+		    <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+     		<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+      		<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+      		<tx:method name="query*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean>
+</beans>
