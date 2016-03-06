@@ -49,7 +49,62 @@ public class RoleController extends BaseController {
 	@Resource(name="roleService")
 	private RoleService roleService;
 	
+	/**
+	 * 权限(增删改查)
+	 */
+	@RequestMapping(value="/qx")
+	public ModelAndView qx()throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		try{
+			pd = this.getPageData();
+			String msg = pd.getString("msg");
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")){roleService.updateQx(msg,pd);}
+			mv.setViewName("save_result");
+			mv.addObject("msg","success");
+		} catch(Exception e){
+			logger.error(e.toString(), e);
+		}
+		return mv;
+	}
 	
+	/**
+	 * K权限
+	 */
+	@RequestMapping(value="/kfqx")
+	public ModelAndView kfqx()throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		try{
+			pd = this.getPageData();
+			String msg = pd.getString("msg");
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")){roleService.updateKFQx(msg,pd);}
+			mv.setViewName("save_result");
+			mv.addObject("msg","success");
+		} catch(Exception e){
+			logger.error(e.toString(), e);
+		}
+		return mv;
+	}
+	
+	/**
+	 * c权限
+	 */
+	@RequestMapping(value="/gysqxc")
+	public ModelAndView gysqxc()throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		try{
+			pd = this.getPageData();
+			String msg = pd.getString("msg");
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")){roleService.gysqxc(msg,pd);}
+			mv.setViewName("save_result");
+			mv.addObject("msg","success");
+		} catch(Exception e){
+			logger.error(e.toString(), e);
+		}
+		return mv;
+	}
 	
 	/**
 	 * 列表
@@ -228,7 +283,51 @@ public class RoleController extends BaseController {
 		return "authorization";
 	}
 	
-	
+	/**
+	 * 请求角色按钮授权页面
+	 */
+	@RequestMapping(value="/button")
+	public ModelAndView button(@RequestParam String ROLE_ID,@RequestParam String msg,Model model)throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		try{
+			List<Menu> menuList = menuService.listAllMenu();
+			Role role = roleService.getRoleById(ROLE_ID);
+			
+			String roleRights = "";
+			if("add_qx".equals(msg)){
+				roleRights = role.getADD_QX();
+			}else if("del_qx".equals(msg)){
+				roleRights = role.getDEL_QX();
+			}else if("edit_qx".equals(msg)){
+				roleRights = role.getEDIT_QX();
+			}else if("cha_qx".equals(msg)){
+				roleRights = role.getCHA_QX();
+			}
+			
+			if(Tools.notEmpty(roleRights)){
+				for(Menu menu : menuList){
+					menu.setHasMenu(RightsHelper.testRights(roleRights, menu.getMENU_ID()));
+					if(menu.isHasMenu()){
+						List<Menu> subMenuList = menu.getSubMenu();
+						for(Menu sub : subMenuList){
+							sub.setHasMenu(RightsHelper.testRights(roleRights, sub.getMENU_ID()));
+						}
+					}
+				}
+			}
+			JSONArray arr = JSONArray.fromObject(menuList);
+			String json = arr.toString();
+			//System.out.println(json);
+			json = json.replaceAll("MENU_ID", "id").replaceAll("MENU_NAME", "name").replaceAll("subMenu", "nodes").replaceAll("hasMenu", "checked");
+			mv.addObject("zTreeNodes", json);
+			mv.addObject("roleId", ROLE_ID);
+			mv.addObject("msg", msg);
+		} catch(Exception e){
+			logger.error(e.toString(), e);
+		}
+		mv.setViewName("system/role/role_button");
+		return mv;
+	}
 	
 	/**
 	 * 保存角色菜单权限
@@ -262,7 +361,30 @@ public class RoleController extends BaseController {
 		}
 	}
 	
-	
+	/**
+	 * 保存角色按钮权限
+	 */
+	@RequestMapping(value="/roleButton/save")
+	public void orleButton(@RequestParam String ROLE_ID,@RequestParam String menuIds,@RequestParam String msg,PrintWriter out)throws Exception{
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		try{
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")){
+				if(null != menuIds && !"".equals(menuIds.trim())){
+					BigInteger rights = RightsHelper.sumRights(Tools.str2StrArray(menuIds));
+					pd.put("value",rights.toString());
+				}else{
+					pd.put("value","");
+				}
+				pd.put("ROLE_ID", ROLE_ID);
+				roleService.updateQx(msg,pd);
+			}
+			out.write("success");
+			out.close();
+		} catch(Exception e){
+			logger.error(e.toString(), e);
+		}
+	}
 	
 	/**
 	 * 删除

@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		  <module>cat-common</module>
-		  <!-- <module>cat-schedule</module> --> 
+		   <module>cat-schedule</module>  
 		 <module>cat-cms</module>
     	 <module>cat-cms-api</module>
     	 <module>cat-blog</module>

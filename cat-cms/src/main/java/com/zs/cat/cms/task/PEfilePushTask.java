@@ -1,4 +1,4 @@
-/*package com.zs.cat.cms.task;
+package com.zs.cat.cms.task;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.StatefulJob;
@@ -26,15 +26,5 @@ public class PEfilePushTask extends AbstractTask implements StatefulJob{
 		
 		
 	}
-
-	
-
-	
-	
-	
-	
-	
-	
 	
 }
-*/

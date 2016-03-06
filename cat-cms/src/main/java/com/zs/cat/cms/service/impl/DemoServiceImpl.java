@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.zs.cat.cms.api.service.DemoService;
-import com.zs.cat.cms.api.service.PeopleService;
 import com.zs.cat.commons.dao.DaoSupport;
 import com.zs.cat.commons.dao.Page;
 import com.zs.cat.commons.dao.PageData;
