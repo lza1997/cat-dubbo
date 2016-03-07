@@ -14,7 +14,7 @@
     	 <module>cat-blog-api</module>
 		  <module>cat-oa</module>
     	 <module>cat-oa-api</module> 
-		 <module>cat-blog-web</module>
+	
     	 
 		<module>cat-web</module>
   </modules>
