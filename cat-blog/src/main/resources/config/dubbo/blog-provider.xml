@@ -20,8 +20,8 @@
 	<dubbo:protocol name="dubbo" port="${dubbo.service.port}" />
 	<!-- Web接口 -->
 	<dubbo:service interface="com.zs.cat.blog.api.service.BlogService" ref="blogService" registry="cat"/>
-	<!-- <dubbo:service interface="com.bestpay.bpcs.filepush.api.service.FileNameService" ref="fileNameService" registry="bpcs"/>
-	<dubbo:service interface="com.bestpay.bpcs.filepush.api.service.FileTransferService" ref="fileTransferService" registry="bpcs"/>
-	<dubbo:service interface="com.bestpay.bpcs.filepush.api.service.FileManageService" ref="fileManageService" registry="bpcs"/> -->
+	<!-- <dubbo:service interface="com.cat.zs.filepush.api.service.FileNameService" ref="fileNameService" registry="zs"/>
+	<dubbo:service interface="com.cat.zs.filepush.api.service.FileTransferService" ref="fileTransferService" registry="zs"/>
+	<dubbo:service interface="com.cat.zs.filepush.api.service.FileManageService" ref="fileManageService" registry="zs"/> -->
 </beans>
 

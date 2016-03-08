@@ -14,14 +14,14 @@
             <!--<onMatch>ACCEPT</onMatch>-->
             <!--<onMismatch>DENY</onMismatch>-->
         <!--</filter>-->
-        <!--<file>${logRoot}/bpcs-filepush_in.log</file>-->
+        <!--<file>${logRoot}/zs-filepush_in.log</file>-->
         <!--<encoder>-->
             <!--&lt;!&ndash;<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>&ndash;&gt;-->
             <!--<pattern>%date %level [%thread] %logger{10} [%file] %msg%n</pattern>-->
         <!--</encoder>-->
         <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
             <!--&lt;!&ndash; rollover daily &ndash;&gt;-->
-            <!--<fileNamePattern>${logRoot}/bpcs-filepush_in_%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+            <!--<fileNamePattern>${logRoot}/zs-filepush_in_%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
             <!--<maxHistory>30</maxHistory>-->
             <!--<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
                 <!--<maxFileSize>500MB</maxFileSize>-->
@@ -35,14 +35,14 @@
             <!--<onMatch>ACCEPT</onMatch>-->
             <!--<onMismatch>DENY</onMismatch>-->
         <!--</filter>-->
-        <!--<file>${logRoot}/bpcs-filepush_out.log</file>-->
+        <!--<file>${logRoot}/zs-filepush_out.log</file>-->
         <!--<encoder>-->
             <!--&lt;!&ndash;<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>&ndash;&gt;-->
             <!--<pattern>%date %level [%thread] %logger{10} [%file] %msg%n</pattern>-->
         <!--</encoder>-->
         <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
             <!--&lt;!&ndash; rollover daily &ndash;&gt;-->
-            <!--<fileNamePattern>${logRoot}/bpcs-filepush_out_%d{yyyyMMdd}.%i.log</fileNamePattern>-->
+            <!--<fileNamePattern>${logRoot}/zs-filepush_out_%d{yyyyMMdd}.%i.log</fileNamePattern>-->
             <!--<maxHistory>30</maxHistory>-->
             <!--<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
                 <!--<maxFileSize>500MB</maxFileSize>-->
@@ -57,14 +57,14 @@
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
-        <file>${logRoot}/bpcs-filepush_info.log</file>
+        <file>${logRoot}/zs-filepush_info.log</file>
         <encoder>
             <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
             <pattern>%date %level [%thread] %logger{10} [%file] %msg%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${logRoot}/bpcs-filepush_info_%d{yyyyMMdd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logRoot}/zs-filepush_info_%d{yyyyMMdd}.%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>500MB</maxFileSize>
@@ -76,14 +76,14 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
         </filter>
-        <file>${logRoot}/bpcs-filepush_error.log</file>
+        <file>${logRoot}/zs-filepush_error.log</file>
         <encoder>
             <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
             <pattern>%date %level [%thread] %logger{10} [%file] %msg%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${logRoot}/bpcs-filepush_error_%d{yyyyMMdd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logRoot}/zs-filepush_error_%d{yyyyMMdd}.%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>500MB</maxFileSize>
@@ -121,19 +121,19 @@
 		<appender-ref ref="${logDefaultFile}" />
 		<appender-ref ref="error" />
 	</logger>
-    <logger name="com.bestpay.bpcs.commons" level="${logLevel}" additivity="false">
+    <logger name="com.cat.zs.commons" level="${logLevel}" additivity="false">
         <appender-ref ref="in"/>
         <appender-ref ref="error"/>
     </logger>
-     <logger name="com.bestpay.bpcs.filepush" level="${logLevel}" additivity="false">
+     <logger name="com.cat.zs.filepush" level="${logLevel}" additivity="false">
         <appender-ref ref="in"/>
         <appender-ref ref="error"/>
     </logger>
-    <logger name="com.bestpay.oss.support.aop.OssAspect" level="${logLevel}" additivity="false">
+    <logger name="com.cat.oss.support.aop.OssAspect" level="${logLevel}" additivity="false">
         <appender-ref ref="in"/>
         <appender-ref ref="error"/>
     </logger>
-    <logger name="com.bestpay.oss.support.dubbo.RemoteServiceFilter" level="${logLevel}" additivity="false">
+    <logger name="com.cat.oss.support.dubbo.RemoteServiceFilter" level="${logLevel}" additivity="false">
         <appender-ref ref="out"/>
         <appender-ref ref="error"/>
     </logger>

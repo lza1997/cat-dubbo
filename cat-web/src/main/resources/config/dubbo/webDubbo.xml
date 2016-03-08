@@ -17,7 +17,7 @@
 	
 	
 	<!-- 监控数据接口 -->
-	<dubbo:reference id="monitorService" interface="com.bestpay.bpcs.monitor.api.service.MonitorService" registry="cat"/>
+	<dubbo:reference id="monitorService" interface="com.cat.zs.monitor.api.service.MonitorService" registry="cat"/>
 	<!-- 监控定义接口 -->
 <dubbo:reference interface="com.zs.cat.cms.api.service.DemoService" id="demoService" registry="cat"/>
 	<dubbo:reference interface="com.zs.cat.cms.api.service.PeopleService" id="peopleService" registry="cat"/>

@@ -4,12 +4,12 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.bestpay.bpcs</groupId>
-		<artifactId>bpcs</artifactId>
+		<groupId>com.cat.zs</groupId>
+		<artifactId>zs</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>bpcs-filepush-api</artifactId>
+	<artifactId>zs-filepush-api</artifactId>
 	<url>http://maven.apache.org</url>
 
 	<properties>

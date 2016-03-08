@@ -7,8 +7,8 @@ import java.util.Enumeration;
 /**
  * IP获取工具类
  * File                 : IpGetter.java
- * Copy Right           : 天翼电子商户有限公司 www.bestpay.com.cn
- * Project              : com.bestpay.css.commons
+ * Copy Right           : 天翼电子商户有限公司 www.cat.com.cn
+ * Project              : com.cat.css.commons
  * JDK version used     : JDK 1.6
  * Comments             : 
  * Version              : 1.00

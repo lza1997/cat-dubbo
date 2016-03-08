@@ -14,7 +14,7 @@ public class TaskConstantUtils {
 	
 	public final static String APPLICATION_CONTEXT_KEY = "applicationContext";//spring上下文
 	
-	public final static String CSS_ENV_PATH =  System.getenv().get("BPCS_CONFIG");//读取环境变量
+	public final static String CSS_ENV_PATH =  System.getenv().get("zs_CONFIG");//读取环境变量
 	
 	public static final String CONFIG_FILE_PATH_FILESYSTEM = CSS_ENV_PATH + "other.properties";//配置文件文件系统路径
 	

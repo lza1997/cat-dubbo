@@ -38,9 +38,9 @@ public class Bootstrap extends AbstractIdleService  implements ServletContextLis
         context = new ClassPathXmlApplicationContext(new String[]{"config/spring/cms-context.xml"});
         context.start();
         context.registerShutdownHook();
-        LOGGER.info("bpcs-filepush service started successfully");
+        LOGGER.info("zs-filepush service started successfully");
         Long interval=(System.nanoTime()-startTime)/1000000000;
-        LOGGER.info("BPCS-CORE service STARTED UP successfully in {} seconds...", interval);
+        LOGGER.info("zs-CORE service STARTED UP successfully in {} seconds...", interval);
         LOGGER.info("===================cat-cms START END==========================");
 
     }

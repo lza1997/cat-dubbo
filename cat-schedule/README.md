@@ -1,10 +1,10 @@
 
 1：在要使用定时器的项目里，添加依赖，如下
 ===================================
-<!--bpcs-schedule，定时任务需要添加的依赖 -->
+<!--zs-schedule，定时任务需要添加的依赖 -->
 <dependency>
-	<groupId>com.bestpay.bpcs</groupId>
-	<artifactId>bpcs-schedule</artifactId>
+	<groupId>com.cat.zs</groupId>
+	<artifactId>zs-schedule</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 </dependency>
 
@@ -16,9 +16,9 @@ zooKeeper.schedule.URL=172.26.7.113:21811
 zooKeeper.schedule.groupPath=/scheduleLock
 zooKeeper.schedule.subPath=/scheduleLock/sub
 JOB_NAME=0
-JOB_GROUP=BPCS_CSS
-MODULE_ID=bpcs-inf
-JOB_CLASS=com.bestpay.bpcs.schedule.frame.TaskMaster
+JOB_GROUP=zs_CSS
+MODULE_ID=zs-inf
+JOB_CLASS=com.cat.zs.schedule.frame.TaskMaster
 JOB_CRON=0 0/1 *  * * ? *
 
 
@@ -34,9 +34,9 @@ JOB_CRON=0 0/1 *  * * ? *
     <property name="configLocation" value="classpath:config/mybatis/inf-mybatis-config.xml"/>
     <property name="mapperLocations">
         <list>
-            <value>classpath*:com/bestpay/bpcs/inf/base/dao/mapper/*.xml</value>
+            <value>classpath*:com/cat/zs/inf/base/dao/mapper/*.xml</value>
             <!-- 定时任务需要的mapper -->
-            <value>classpath*:com/bestpay/bpcs/schedule/config/dao/mapper/*.xml</value>
+            <value>classpath*:com/cat/zs/schedule/config/dao/mapper/*.xml</value>
         </list>
     </property>
 </bean>
@@ -44,7 +44,7 @@ JOB_CRON=0 0/1 *  * * ? *
 <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
     <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     <!-- 定时任务需要 -->
-    <property name="basePackage" value="com.bestpay.bpcs.inf.base.dao; com.bestpay.bpcs.schedule.config.dao"/>
+    <property name="basePackage" value="com.cat.zs.inf.base.dao; com.cat.zs.schedule.config.dao"/>
 </bean>
 
 
@@ -65,19 +65,19 @@ JOB_CRON=0 0/1 *  * * ? *
     </tx:attributes>
 </tx:advice>
 <aop:config>
-    <aop:pointcut expression="execution(* com.bestpay.bpcs.schedule.config.*.*(..))" id="allMethod"/><!-- 定时任务需要的 -->
+    <aop:pointcut expression="execution(* com.cat.zs.schedule.config.*.*(..))" id="allMethod"/><!-- 定时任务需要的 -->
     <aop:advisor pointcut-ref="allMethod" advice-ref="schedule_txAdvice"/>
 </aop:config>
 
 
-6：继承com.bestpay.bpcs.schedule.frame.AbstractTask类
+6：继承com.cat.zs.schedule.frame.AbstractTask类
 实现doTask方法，在里面编写对应的业务逻辑代码
 ===================================
-package com.bestpay.bpcs.inf.temp;
+package com.cat.zs.inf.temp;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.bestpay.bpcs.schedule.frame.AbstractTask;
+import com.cat.zs.schedule.frame.AbstractTask;
 //并发执行
 public class TestTask1 extends AbstractTask {
 	private static final Logger LOG = LoggerFactory.getLogger(TestTask.class);
