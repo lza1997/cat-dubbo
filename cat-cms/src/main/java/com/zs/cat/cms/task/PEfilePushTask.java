@@ -1,7 +1,7 @@
 package com.zs.cat.cms.task;
 
 import org.quartz.JobExecutionContext;
-import org.quartz.StatefulJob;
+/**import org.quartz.StatefulJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,3 +28,4 @@ public class PEfilePushTask extends AbstractTask implements StatefulJob{
 	}
 	
 }
+**/

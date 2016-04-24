@@ -16953,7 +16953,7 @@ th[aria-selected=true] .ui-jqgrid-sortable {
 }
 .ui-jqgrid .ui-subgrid .ui-jqgrid .ui-jqgrid-bdiv {
   height: auto !important;
-  max-height: 150px;
+  max-height: 85px;
   margin-bottom: 4px;
   border-top-width: 0;
   border-bottom: 1px solid #E1E1E1;
