@@ -7,6 +7,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		  <module>cat-common</module>
+		  <module>cat-sso</module> 
 		   <module>cat-schedule</module>  
 		 <module>cat-cms</module>
     	 <module>cat-cms-api</module>
@@ -26,6 +27,7 @@
 		<guava.version>15.0</guava.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<quartz.version>1.8.6</quartz.version>
+		<mapper.version>2.3.1</mapper.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<logback.version>1.0.13</logback.version>
 		<log4j.version>1.2.17</log4j.version>
@@ -34,7 +36,12 @@
 	</properties>
 
 	<dependencies>
-
+		<!--通用Mapper -->
+		<dependency>
+			<groupId>com.github.abel533</groupId>
+			<artifactId>mapper</artifactId>
+			<version>${mapper.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

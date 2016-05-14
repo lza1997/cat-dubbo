@@ -1,21 +1,42 @@
+package com.zs.cat.web.controller.system.createcode;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.context.ContextLoaderListener;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zs.cat.commons.dao.PageData;
 import com.zs.cat.commons.util.DelAllFile;
 import com.zs.cat.commons.util.FileDownload;
 import com.zs.cat.commons.util.FileZip;
 import com.zs.cat.commons.util.Freemarker;
 import com.zs.cat.commons.util.PathUtil;
+import com.zs.cat.commons.util.mail.BaseController;
 
-
-public class T {
-
-	public static void main(String[] args) {
+/** 
+ * 类名称：FreemarkerController
+ * 创建人：zs 
+ * 创建时间：2015年1月12日
+ * @version
+ */
+@Controller
+@RequestMapping(value="/createCode")
+public class CreateCodeController extends BaseController {
+	
+	/**
+	 * 生成代码
+	 */
+	@RequestMapping(value="/proCode")
+	public void proCode(HttpServletResponse response) throws Exception{
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		
 		/* ============================================================================================= */
 		String packageName = pd.getString("packageName");  			//包名				========1
 		String objectName = pd.getString("objectName");	   			//类名				========2
@@ -76,5 +97,7 @@ public class T {
 		
 		/*下载代码*/
 		FileDownload.fileDownload(response, PathUtil.getClasspath()+"admin/ftl/code.zip", "code.zip");
+		
 	}
+	
 }
