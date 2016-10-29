@@ -3,7 +3,9 @@
 开源分布式框架zsCat 559182393
 
 文档地址   http://git.oschina.net/catshen/zscatDocument
-
+![输入图片说明](http://git.oschina.net/uploads/images/2016/1029/122812_c0278625_134431.png "在这里输入图片标题")
+![输入图片说明](http://git.oschina.net/uploads/images/2016/1029/122847_c1c15724_134431.png "在这里输入图片标题")
+![输入图片说明](http://git.oschina.net/uploads/images/2016/1029/122910_6eb4beec_134431.png "在这里输入图片标题")
           分布式框架架构设计
 1.架构截图
 
