@@ -17,32 +17,29 @@
 				<div class="navbar-header pull-left" style="min-width:190px;">
 					<a href="#" class="navbar-brand">
 						<small>
-							zsCat正式分布式管理系统
+							zsCat分布式框架
 						</small>
 					</a>
 				</div>
-				 <!-- <div class="navbar-header">
+				<!-- <div class="navbar-header">
 					<ul class="nav navbar-nav">
 						<li class="">
 							<a href="#" data-trigger="ajax" data-target="#fill-main-content" class="bigger-120">
 							<i class="menu-icon fa "></i>&nbsp;
 							</a>
-							
 						</li>
 					</ul>
-				</div>  -->
+				</div> -->
 
-				<div class="navbar-header navbar-buttons  pull-right" role="navigation">
-					<ul class="nav navbar-nav" id="pmenuId">
-					@for(item in pmenuList){
-					<li style="cursor:pointer">
-						<a id="${itemLP.index!}menuclick" >
-							<i class="${item.icon!}"></i>
-							 ${item.name!}
-						</a>
-									
+				<div class="navbar-buttons navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						
+						<li class="green">
+							<a class="dropdown-toggle" href="javascript:void(0);" id="fullscreen" title="全屏"
+							onclick="launchFullscreen(document.documentElement);">
+								<i class="ace-icon fa fa-arrows-alt "></i>
+							</a>
 						</li>
-					@}
 						
 						<li class="purple">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -124,14 +121,6 @@
 									<a href="${ctxPath}/#/ajax/userCenter">
 										<i class="ace-icon fa fa-user"></i>
 										我的资料
-									</a>
-									<a href="${ctxPath}/front/blog/index" target="blank">
-										<i class="ace-icon fa fa-user"></i>
-										blog前端
-									</a>
-									<a href="${ctxPath}/front/edu/index" target="blank">
-										<i class="ace-icon fa fa-user"></i>
-										网校前端
 									</a>
 								</li>
 

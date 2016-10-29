@@ -32,19 +32,10 @@
 			<span class="btn btn-danger"></span>
 		</div>
 	</div><!-- /.sidebar-shortcuts -->
-	@for(menuList in menuLists){
-	@if(menuListLP.index! == 1){
-	<ul class="nav nav-list ${menuListLP.index!}menuclick" id="sidebar-menu">
+
+	<ul class="nav nav-list" id="sidebar-menu">
 		@menuTree(menuList!);
-	</ul>
-	@}
-	@if(menuListLP.index! > 1){
-	<ul class="nav nav-list ${menuListLP.index!}menuclick" id="sidebar-menu"  style="display:none">
-		@menuTree(menuList!);
-	</ul>
-	@}
-	@}
-	<!-- /.nav-list -->
+	</ul><!-- /.nav-list -->
 	<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 		<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 	</div>

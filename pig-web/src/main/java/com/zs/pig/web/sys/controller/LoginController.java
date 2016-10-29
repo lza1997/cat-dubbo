@@ -43,10 +43,9 @@ public class LoginController {
 		request.getSession().removeAttribute("code"); // 清除code
 		if( SysUserUtils.getSessionLoginUser() == null || 
 				SysUserUtils.getCacheLoginUser() ==null ){
-			return "login";
+			return "redirect:/login";
 		}
-		model.addAttribute("pmenuList", sysResourceService.selectTop(0L));
-		model.addAttribute("menuLists", SysUserUtils.getUserMenus());
+		model.addAttribute("menuList", SysUserUtils.getUserMenus());
 		return "index";
 	}
 

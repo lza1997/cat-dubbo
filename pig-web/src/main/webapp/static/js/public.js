@@ -23,9 +23,9 @@ var $curmenu,lastIndex;//最后弹窗索引
 var webHistory = Webit.history;
 
 $(function(){
+	
 	/*$("html").niceScroll({autohidemode:false,zindex:1100,cursorwidth:"9px",
 		 cursorcolor:"rgb(243, 129, 149)",cursorborderradius:"0px"});*/
-	var pMenu = $("#pmenuId a[id]");
 	
 	var aMenu = $("#sidebar-menu a[id]");
 	var tab = $("#breadcrumb");
@@ -43,15 +43,6 @@ $(function(){
 			webHistory.justShow("#");
 			webHistory.go(hash);
 		}
-	});
-	//主 menu点击
-	pMenu.on("click",function(){
-		var href = $(this).attr("id");
-		$("#sidebar-menu").find("li").hide();
-		$("#sidebar").find("ul").hide();
-		$("."+href).show();
-		$("."+href).find("li").show();
-		
 	});
 	//tab切换
 	tab.on("click","li",function(){
@@ -84,7 +75,7 @@ $(function(){
 	    onItem: function(context, e) {
 	    	var t = $(e.target).data("right-menu");
 	    	if(t == "all_close"){
-	    		location.href = ctxPath+'/index';
+	    		location.href = ctxPath;
 	    	}else if(t == "other_close"){
 	    		$(context).addClass("active").siblings().remove();
 	    		webHistory.go($(context).attr("h"));
@@ -236,8 +227,6 @@ function changeMenu(obj){
 				var _scrollHeight = $(document).scrollTop();
 				var _windowHeight = $(window).height();
 				var _windowWidth = $(window).width();
-				var _windowHeight1 = $(window).height();
-				var _windowWidth1 = $(window).width();
 				var borderWidth = params.borderwidth==undefined?4:params.borderwidth;
 				layer.close(loadi); //关闭加载框
 				lastIndex = $.layer({
@@ -308,7 +297,7 @@ function changeMenu(obj){
 				}else{
 					owidth = _windowWidth-8;
 				}
-				//layer.area(lastIndex, {width:_windowWidth1,height:_windowHeight1,top:_posiTop,left:_posiLeft});
+				
 				layer.area(lastIndex, {width:owidth,height:oheight,top:_posiTop,left:_posiLeft});
 		    	
 				var bottom = '0px';

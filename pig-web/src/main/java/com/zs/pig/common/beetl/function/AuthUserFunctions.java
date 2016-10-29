@@ -18,19 +18,7 @@ public class AuthUserFunctions {
 	 * 判断用户是否具有指定权限
 	 */
 	public boolean hasPermission(String url) {
-		Map<String, SysResource> allRes = BeetlUtils
-				.getBeetlSharedVars(Constant.CACHE_ALL_RESOURCE);
-		SysResource sysResource = allRes.get(url);
-		if (sysResource == null
-				|| Constant.RESOURCE_COMMON.equals(sysResource.getCommon())) {
-			return true;
-		}
-
-	
-		 Map<Long,LinkedHashMap<String, SysResource>> userRes = SysUserUtils.getUserResources();
-         for(Map<String, SysResource> res1 :userRes.values()){
-        	 if (res1.containsKey(url)) return true;
-         }
+		
 		
 		return false;
 	}
