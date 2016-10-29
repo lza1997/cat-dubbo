@@ -1,0 +1,7 @@
+20160520
+pig-sso pig-search 模块已经搭建成功
+sso中需要redis ，pig-search中需要spring-rabbit
+20160523
+BoneCPDataSource  主从数据集 已在pig-cms模块配置成功
+20160524
+pi-cms 程序开发
