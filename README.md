@@ -1,7 +1,10 @@
 #cat
 演示地址  http://www.zscat.top/gw/index
-开源分布式框架zsCat  559182393 473023475
-<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=54f9e20124f4d5e482f0319671c667980807cd43611d496e4335e9fc20452581"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="此群已封" title="此群已封"></a>
+zscat普通群
+<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=091b808b670b3f825b101f386ad6e0a7a0b1d7cef1f11a66120c866affcac80c"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="开源分布式框架(2) zsCat" title="开源分布式框架(2) zsCat"></a>
+<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=29ca1c14c4d73e4e4c843a189bc7d84940fd750b8fc1304070af6de02524e9a9"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="zsCat分布式开发" title="zsCat分布式开发"></a>
+zsCat vip群 
+<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=3440b6c11bbf3562bf38ea117cad2573188f1158a15d5397e48b6d4eb48fe587"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="zsCat vip群" title="zsCat vip群"></a>
 
 文档地址   http://git.oschina.net/catshen/zscatDocument
 ![输入图片说明](http://git.oschina.net/uploads/images/2016/1029/122812_c0278625_134431.png "在这里输入图片标题")
