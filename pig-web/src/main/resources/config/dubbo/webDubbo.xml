@@ -21,9 +21,17 @@
 	<dubbo:reference interface="com.zs.pig.cms.api.service.CmsCommentService" id="CmsCommentService" />
 	<dubbo:reference interface="com.zs.pig.cms.api.service.CmsLinkService" id="CmsLinkService" />
 	<dubbo:reference interface="com.zs.pig.cms.api.service.CmsSiteService" id="CmsSiteService"/>
+	<dubbo:reference interface="com.zs.pig.cms.api.service.CmsImgService" id="CmsImgService"/>
 	
 	<dubbo:reference interface="com.zs.pig.cms.api.service.GwInfoService" id="GwInfoService" />
 	<dubbo:reference interface="com.zs.pig.cms.api.service.NavService" id="NavService" />
 	<dubbo:reference interface="com.zs.pig.cms.api.service.ProductService" id="ProductService" />
 	<dubbo:reference interface="com.zs.pig.cms.api.service.ProductTypeService" id="ProductTypeService" />
+	<!-- blog数据接口 -->
+	<dubbo:reference interface="com.zs.pig.blog.api.service.BlogTemplateService" id="BlogTemplateService"/>
+	<dubbo:reference interface="com.zs.pig.blog.api.service.BloggerService" id="BloggerService" />
+	<dubbo:reference interface="com.zs.pig.blog.api.service.BlogService" id="BlogService" />
+	<dubbo:reference interface="com.zs.pig.blog.api.service.BlogTypeService" id="BlogTypeService" />
+	<dubbo:reference interface="com.zs.pig.blog.api.service.CommentService" id="CommentService" />
+	<dubbo:reference interface="com.zs.pig.blog.api.service.LinkService" id="LinkService" />
 </beans>

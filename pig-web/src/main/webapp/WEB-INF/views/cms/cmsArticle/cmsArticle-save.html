@@ -5,63 +5,121 @@
 		action="${ctxPath}/cmsArticle/save">
 		
 		<input type="hidden" value="${cmsArticle.id!}" name="id"/>
-		<input type="hidden" value="${pCmsArticle.parentIds!}" name="parentIds" />
-		<input type="hidden" value="${cmsArticle.parentIds!}" name="oldParentIds" />
 		<table class="EditTable" width="100%">
 			<tbody>
 				<tr style="display: none;">
 					<td class="ui-state-error" id="FormError"></td>
 				</tr>
+		<tr class="FormData">
+			<td class="CaptionTD">类别</td>
+			<td class="DataTD width-100">
+			@var wapTypeList1 = dict.getDictListByType("cms_wap_type");
+					<#select name="color">
+						@for(item in wapTypeList1){
+							<option value="${item.value!}" ${decode(item.value,cmsArticle.color!,"selected","")}>
+							${item.label!}
+							</option>
+						@}
+					</#select>
+			</td>
+		</tr>
 		
+		
+		
+		<tr class="FormData">
+			<td class="CaptionTD">图片</td>
+			<td class="DataTD width-100">
+			<input type="file" class="width-50" id="img" name="img" datatype="*"  nullmsg="请输入姓名！"/>
+			<a href="${ctxPath}/ZSCAT/${cmsArticle.image!}" target="_blank"><img id="imgId" src="${ctxPath}/ZSCAT/${cmsArticle.image!}" height="60px" width="60px"/></a>
+					<input type="button" class="btn btn-mini btn-danger" value="删除" onclick="delP('${cmsArticle.image}','${cmsArticle.id}');" />
+						
+			</td>
+		</tr>
+		<tr class="FormData">
+			<td class="CaptionTD">isWord</td>
+			<td class="DataTD width-100"><input type="text" name="isword" datatype="*"
+			nullmsg="请输入isWord！" value="${cmsArticle.isword!}"></td>
+		</tr>
+		<tr class="FormData">
+			<td class="CaptionTD">keywords</td>
+			<td class="DataTD width-100"><input type="text" name="keywords" datatype="*"
+			nullmsg="请输入keywords！" value="${cmsArticle.keywords!}"></td>
+		</tr>
 		<tr class="FormData">
 			<td class="CaptionTD">标题</td>
-			<td class="DataTD width-100 "><input type="text" name="title" datatype="*"
+			<td class="DataTD width-100"><input type="text" name="title" datatype="*"
 			nullmsg="请输入标题！" value="${cmsArticle.title!}"></td>
 		</tr>
-		<tr class="FormData">
-					<td class="CaptionTD">上级栏目</td>
-					<td class="DataTD">
-					<#treeselect url="cmsCategory/tree" modelId="categoryId" modelNameValue="${pCmsCategory.name!}" 
-							modelIdValue="${pCmsCategory.id!0}" selectIds="${pCmsCategory.id!}"
-							curId="${cmsArticle.id!}" />
-					</td>
-				</tr>
-		
-		
-		<tr class="FormData">
-			<td class="CaptionTD">关键字</td>
-			<td class="DataTD width-100 tags"><input type="text" name="keywords"  value="${cmsArticle.keywords!}"></td>
-		</tr>
-		
 		<tr class="FormData">
 			<td class="CaptionTD">权重</td>
 			<td class="DataTD width-100"><input type="text" name="weight" datatype="*"
 			nullmsg="请输入权重！" value="${cmsArticle.weight!}"></td>
 		</tr>
 		<tr class="FormData">
-					<td class="CaptionTD">描述</td>
-					<td class="DataTD">
-						<textarea name="description" class="autosize-transition form-control "
-						style="resize: none;">${cmsArticle.description!}</textarea>	
-					</td>
-				</tr> 
-
-		<tr class="FormData">
-					<td class="CaptionTD">内容</td>
-				
-		<td><script id="ueditor" type="text/plain" name="content" style="width:524px;height:300px;">${cmsArticle.content!}</script></td>
+			<td class="CaptionTD">分类</td>
+			<td class="DataTD width-100">
+			<#treeselect url="cmsCategory/tree" modelName="categoryname" modelNameValue="${cmsArticle.categoryname!}" 
+							modelIdValue="${cmsCategory.id!''}" selectIds="${cmsCategory.id!}"
+							modelId="categoryId" nameId="cmsCategory" id="category_id"
+							isCheck="请选择分类"/>
+							</td>
 		</tr>
-				 
+		<tr class="FormData">
+			<td class="CaptionTD">内容</td>
+			<td class="DataTD width-100">
+			<input type="hidden" name="contentNoTag" id="contentNoTag" />
+		<input type="hidden" name="description" id="description" />
+			<textarea  style="width:93%;height:290px" name="content" id="content" value="${cmsArticle.content!}"></textarea>
+			</td>
+		</tr>
+		<tr><td colspan="2"><input type="button" onclick="backValue()" class="btn btn-info btn-block bigger-120" value="保存"></td></tr>
 			</tbody>
 		</table>
 	</form>
 </div>
-<#save formId="cmsArticle-save" />
 
 <script type="text/javascript">
-UE.getEditor('ueditor');
-$('.tags').tagsInput();
-//描述框自动扩张高度
-$('textarea[class*=autosize]').autosize({append: "\n"});
+//删除图片
+function delP(tpurl,id){
+	 if(confirm("确定要删除图片？")){
+		 $("imgId").attr("src","");
+		// var url = "${ctxPath!}/cmsArticle/deltp.do?tpurl="+tpurl+"&ID="+id+"&guid="+new Date().getTime();
+		//$.get(url,function(data){
+		//	if(data=="success"){
+		//		alert("删除成功!");
+		//		document.location.reload();
+		//	}
+		//});
+	} 
+}
+//上传
+$('#img').ace_file_input({
+	no_file:'请选择图片 ...',
+	btn_choose:'选择',
+	btn_change:'更改',
+	droppable:false,
+	onchange:null,
+	thumbnail:false //| true | large
+	//whitelist:'gif|png|jpg|jpeg'
+	//blacklist:'exe|php'
+	//onchange:''
+	//
+});
+//日期框
+$('.date-picker').datepicker();
+function backValue(){
+	var content=UE.getEditor('content').getContent();
+	var contentNoTag=UE.getEditor('content').getContentTxt();
+	var summary=UE.getEditor('content').getContentTxt().substr(0,155);
 
+	$("#content").val(content);
+	$("#contentNoTag").val(contentNoTag);
+	$("#description").val(summary);
+	$("#cmsArticle-save-form").submit();
+	
+}
+function reurl(){ 
+	UE.getEditor('content');
+} 
+setTimeout('reurl()',500); 
 </script>

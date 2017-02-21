@@ -10,7 +10,7 @@
     response.setCharacterEncoding( Uploader.ENCODEING );
     
     String currentPath = request.getRequestURI().replace( request.getContextPath(), "" );
-
+System.out.print("currentPath");
     File currentFile = new File( currentPath );
 
     currentPath = currentFile.getParent() + File.separator;
@@ -32,6 +32,8 @@
     up.setAllowFiles(fileType);
     up.setMaxSize(500 * 1024);        //允许的文件最大尺寸，单位KB
     up.upload();
+    System.out.print("{'url':'"+up.getUrl()+"','fileType':'"+up.getType()+"','state':'"+up.getState()+"','original':'"+up.getOriginalName()+"'}");
+
     response.getWriter().print("{'url':'"+up.getUrl()+"','fileType':'"+up.getType()+"','state':'"+up.getState()+"','original':'"+up.getOriginalName()+"'}");
 
 %>

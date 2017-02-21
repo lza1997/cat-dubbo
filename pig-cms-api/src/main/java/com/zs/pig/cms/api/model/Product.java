@@ -109,14 +109,14 @@ public class Product extends BaseEntity {
 		this.set("clickhit", clickhit);
 	}
 
-	private String type;
+	private Long typeid;
 
-	public String getType() {
-		return this.getString("type");
+	public Long getTypeid() {
+		return this.getLong("typeid");
 	}
 
-	public void setType(String type) {
-		this.set("type", type);
+	public void setTypeid(Long typeid) {
+		this.set("typeid", typeid);
 	}
 
 	private String img;

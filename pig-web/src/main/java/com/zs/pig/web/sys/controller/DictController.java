@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.zs.pig.common.constant.ZsCatConstant;
+import com.zs.pig.common.redis.test.RedisUtils;
 import com.zs.pig.common.sys.model.SysDict;
 import com.zs.pig.web.sys.service.SysDictService;
 
@@ -33,6 +35,7 @@ public class DictController {
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public @ResponseBody Integer save(@ModelAttribute SysDict sysDict) {
+		sysDict.setCreateBy(RedisUtils.get(ZsCatConstant.SITEID, "1"));
 		return sysDictService.saveSysdict(sysDict);
 	}
 	

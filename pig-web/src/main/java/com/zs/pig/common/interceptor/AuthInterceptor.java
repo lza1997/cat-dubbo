@@ -21,7 +21,7 @@ import com.zs.pig.web.sys.utils.SysUserUtils;
 public class AuthInterceptor implements HandlerInterceptor {
 
     private Set<String> ignorePath = new HashSet<String>
-    (Arrays.asList("/notlogin", "/ErrorHandler"));
+    (Arrays.asList("/gw", "/cms", "/front", "/notlogin", "/ErrorHandler"));
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -57,13 +57,14 @@ public class AuthInterceptor implements HandlerInterceptor {
                 SysUserUtils.setUserAuth();
                 
                 //从缓存中的用户权限 map<url:resource>
-                Map<String, SysResource> userRes = SysUserUtils.getUserResources();
-            //    Map<Long,LinkedHashMap<String, SysResource>> userRes = SysUserUtils.getUserResources();
-                if (userRes.containsKey(perPath)) { //有权限则过
-                    return true;
-                } else { //没有权限跳到未有权限
-                    response.sendRedirect(ctx + "/notauth");
-                    return false;
+                Map<Long,LinkedHashMap<String, SysResource>> userRes = SysUserUtils.getUserResources();
+                for(Map<String, SysResource> res1 :userRes.values()){
+                	if (res1.containsKey(perPath)) { //有权限则过
+                        return true;
+                    } else { //没有权限跳到未有权限
+                        response.sendRedirect(ctx + "/notauth");
+                        return false;
+                    }
                 }
                 
             }

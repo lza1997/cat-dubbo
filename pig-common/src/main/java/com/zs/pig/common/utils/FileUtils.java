@@ -49,7 +49,25 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 	public static boolean copyFile(String srcFileName, String descFileName) {
 		return FileUtils.copyFileCover(srcFileName, descFileName, false);
 	}
-
+	/**
+	 * 写文件到当前目录的upload目录中
+	 * 
+	 * @param in
+	 * @param fileName
+	 * @throws IOException
+	 */
+	public static String copyFile(InputStream in, String dir, String realName)
+			throws IOException {
+		File file = new File(dir, realName);
+		if (!file.exists()) {
+			if (!file.getParentFile().exists()) {
+				file.getParentFile().mkdirs();
+			}
+			file.createNewFile();
+		}
+		FileUtils.copyInputStreamToFile(in, file);
+		return realName;
+	}
 	/**
 	 * 复制单个文件
 	 * @param srcFileName 待复制的文件名

@@ -3,6 +3,7 @@
 package com.zs.pig.cms.api.model;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.zs.pig.common.base.BaseEntity;
 
@@ -19,7 +20,23 @@ import com.zs.pig.common.base.BaseEntity;
 public class CmsCategory extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-
+	private String parentIds; //parent_ids <所有父级编号>
+	 @Transient
+	    private String oldParentIds; //旧的pids,非表中字段，用作更新用
+	public String getParentIds() {
+		return this.getString("parentIds");
+    }
+   
+    public void setParentIds(String parentIds) {
+		this.set("parentIds", parentIds);
+    }
+    public String getOldParentIds() {
+		return this.getString("oldParentIds");
+    }
+   
+    public void setOldParentIds(String oldParentIds) {
+		this.set("oldParentIds", oldParentIds);
+    }
   		 private String description;
 public String getDescription() {return this.getString("description");}
 public void setDescription(String description) {this.set("description",description);}

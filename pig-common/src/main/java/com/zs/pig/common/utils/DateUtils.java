@@ -142,7 +142,18 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		}
 		return date;
 	}
-	
+	/**
+	 * long 转为 日期
+	 * @param time
+	 * @return
+	 */
+	public static String formatLongToStr(long time, String pattern){
+		
+		SimpleDateFormat sdf= new SimpleDateFormat(pattern);
+		Date date = new Date(time);
+		String sDateTime = sdf.format(date);  //得到精确到秒的表示：08/31/2006 21:08:00
+		return sDateTime;
+	}
 	/**
 	 * @param args
 	 * @throws ParseException

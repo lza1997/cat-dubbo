@@ -2,6 +2,7 @@ package com.zs.pig.web.sys.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,7 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
+import com.zs.pig.cms.api.model.CmsArticle;
+import com.zs.pig.cms.api.model.CmsSite;
+import com.zs.pig.cms.api.service.CmsSiteService;
 import com.zs.pig.common.constant.Constant;
+import com.zs.pig.common.sys.model.SysResource;
 import com.zs.pig.common.sys.model.SysUser;
 import com.zs.pig.common.utils.IPUtils;
 import com.zs.pig.web.sys.service.SysResourceService;
@@ -29,7 +35,8 @@ public class LoginController {
 	private SysResourceService sysResourceService;
 	@Resource
 	private SysUserService sysUserService;
-	
+	@Resource
+	private CmsSiteService CmsSiteService;
 	
 	/**
 	 * 管理主页
@@ -43,12 +50,73 @@ public class LoginController {
 		request.getSession().removeAttribute("code"); // 清除code
 		if( SysUserUtils.getSessionLoginUser() == null || 
 				SysUserUtils.getCacheLoginUser() ==null ){
-			return "redirect:/login";
+			return "login";
 		}
-		model.addAttribute("menuList", SysUserUtils.getUserMenus());
+		model.addAttribute("siteLists", CmsSiteService.select(new CmsSite()));
+		model.addAttribute("pmenuList", sysResourceService.selectTop(0L));
+		model.addAttribute("menuLists", SysUserUtils.getUserMenus());
+		String id = request.getParameter("order");
+		if (id != null && !id.equals("")) {
+			SysResource record=new SysResource();
+			record.setParentId(Long.parseLong(id));
+			List<SysResource> resourceList=sysResourceService.select(record, "sort");
+			
+			request.setAttribute("menuList", resourceList);
+		}else{
+			SysResource record=new SysResource();
+			record.setParentId(Long.parseLong("188"));
+			List<SysResource> resourceList=sysResourceService.select(record, "sort");
+			
+			request.setAttribute("menuList", resourceList);
+		}
 		return "index";
 	}
+	@RequestMapping(value="/indexBak")
+	public String toIndexBak(Model model, HttpServletRequest request) {
+		request.getSession().removeAttribute("code"); // 清除code
+		if( SysUserUtils.getSessionLoginUser() == null || 
+				SysUserUtils.getCacheLoginUser() ==null ){
+			return "login";
+		}
+		model.addAttribute("siteLists", CmsSiteService.select(new CmsSite()));
+		model.addAttribute("pmenuList", sysResourceService.selectTop(0L));
+		model.addAttribute("menuLists", SysUserUtils.getUserMenus());
+		return "index";
+	}
+	@RequestMapping("/ajax-bna")
+	public String ajaxindex(HttpServletRequest request) {
+		try {
+			String id = request.getParameter("order");
+			if (id != null && !id.equals("")) {
+				SysResource record=new SysResource();
+				record.setParentId(Long.parseLong(id));
+				List<SysResource> resourceList=sysResourceService.select(record, "sort");
+				
+				request.setAttribute("menuList", resourceList);
+			}
+		} catch (Exception e) {
 
+		}
+		return "ajax-index";
+	}
+	@Deprecated
+	@RequestMapping("/ajax-bnaBak")
+	public @ResponseBody List<SysResource> bnaBak(HttpServletRequest request) {
+		List<SysResource> resourceList=null;
+		try {
+			String id = request.getParameter("order");
+			if (id != null && !id.equals("")) {
+				SysResource record=new SysResource();
+				record.setParentId(Long.parseLong(id));
+				 resourceList=sysResourceService.select(record, "sort");
+				
+			//	request.setAttribute("menuList", resourceList);
+			}
+		} catch (Exception e) {
+
+		}
+		return resourceList;
+	}
 	/**
 	 * 跳转到登录页面
 	 * 

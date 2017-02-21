@@ -2,7 +2,7 @@
 	<thead>
 		<tr>
 			<th class="center">标题</th>
-			<th class="center">标签</th>
+			<th class="center">类别</th>
 			<th class="center">简诉</th>
 			<th class="center">查看次数</th>
 			<th class="center">类型</th>
@@ -16,11 +16,11 @@
 		@for(item in page.list){
 			<tr>
 			<td class="center">${item.title!}</td>
-			<td class="center">${item.tag!}</td>
+			<td class="center">${item.typename!}</td>
 			<td class="center">${item.summary!}</td>
 			<td class="center">${item.clickhit!}</td>
 			<td class="center">${item.type!}</td>
-			<td class="center"><a href="${item.img!}">${item.img!}</a></td>
+			<td class="center"><img width="100px" height="100px" src="${imgServer!}/${item.img!}"/></td>
 			<td class="center">${item.addtime!}</td>
 
 				<td class="center">

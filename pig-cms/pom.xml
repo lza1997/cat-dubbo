@@ -7,7 +7,6 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
   <artifactId>pig-cms</artifactId>
-  <packaging>jar</packaging>
 
   <name>pig-cms</name>
   <url>http://maven.apache.org</url>
@@ -40,10 +39,7 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.beetl</groupId>
-			<artifactId>beetl-core</artifactId>
-		</dependency>
+	
 			<!-- Jackson Json处理工具包 -->
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
@@ -239,7 +235,7 @@
 		</profile>
 	</profiles>
 	<build>
-		<finalName>pig-cms-${mavenDir}</finalName>
+		<finalName>pig-cms</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>

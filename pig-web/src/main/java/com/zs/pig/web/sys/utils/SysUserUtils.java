@@ -1,5 +1,6 @@
 package com.zs.pig.web.sys.utils;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.primitives.Ints;
-import com.zs.pig.common.beetl.utils.BeetlUtils;
 import com.zs.pig.common.constant.Constant;
 import com.zs.pig.common.spring.utils.SpringContextHolder;
 import com.zs.pig.common.sys.model.SysOffice;
@@ -65,53 +65,81 @@ public class SysUserUtils {
 	 * 登录用户持有的资源
 	* @return
 	 */
-	public static Map<String, SysResource> getUserResources(){
+	public static Map<Long,LinkedHashMap<String, SysResource>> getUserResources(){
 		SysUser sysUser = getCacheLoginUser();
-		Map<String, SysResource> userResources = CacheUtils.get(
-				Constant.CACHE_SYS_RESOURCE, Constant.CACHE_USER_RESOURCE
-						+ sysUser.getId());
-		if (userResources == null) {
+		Map<Long,LinkedHashMap<String, SysResource>> pMenu=null;
+		LinkedHashMap<String, SysResource> userResources = null;
+		if (pMenu == null) {
+			pMenu=new LinkedHashMap<Long, LinkedHashMap<String,SysResource>>();
 			if (sysUser.isAdmin()) {
-				userResources = BeetlUtils.getBeetlSharedVars(Constant.CACHE_ALL_RESOURCE);
-			} else {
-				List<SysResource> userRes = sysResourceService.findUserResourceByUserId(sysUser);
-				userResources = new LinkedHashMap<String, SysResource>();
-				for(SysResource res : userRes){
-					if(StringUtils.isBlank(res.getUrl())){
-						userResources.put(res.getId().toString(), res);
-					}else{
-						userResources.put(res.getUrl(), res);
+				List<SysResource> pRes=sysResourceService.selectTop(0L);
+				for(SysResource res1 : pRes){
+					List<SysResource> userRes = sysResourceService.findUserResourceByPid(res1.getId());
+					userResources = new LinkedHashMap<String, SysResource>();
+					for(SysResource res : userRes){
+						if(StringUtils.isBlank(res.getUrl())){
+							userResources.put(res.getId().toString(), res);
+						}else{
+							userResources.put(res.getUrl(), res);
+						}
+						
 					}
+					pMenu.put(res1.getId(), userResources);
 				}
+			} else {
+				List<SysResource> pRes=sysResourceService.selectTop(0L);
+				for(SysResource res1 : pRes){
+					List<SysResource> userRes = sysResourceService.findUserResourceByUserIdAndPid(sysUser.getId(), res1.getId());
+					userResources = new LinkedHashMap<String, SysResource>();
+					for(SysResource res : userRes){
+						if(StringUtils.isBlank(res.getUrl())){
+							userResources.put(res.getId().toString(), res);
+						}else{
+							userResources.put(res.getUrl(), res);
+						}
+						
+					}
+					pMenu.put(res1.getId(), userResources);
+				}
+				
+				//List<SysResource> userRes = sysResourceService.findUserResourceByUserId(sysUser);
+				
 			}
 			CacheUtils.put(Constant.CACHE_SYS_RESOURCE,
 					Constant.CACHE_USER_RESOURCE + sysUser.getId(),
-					userResources);
+					pMenu);
 		}
-		return userResources;
+		return pMenu;
 	}
 	
 	/**
 	 * 登录用户菜单
 	 */
-	public static List<SysResource> getUserMenus(){
+	public static List<List<SysResource>> getUserMenus(){
 		SysUser sysUser = getCacheLoginUser();
-		List<SysResource> userMenus = CacheUtils.get(
-				Constant.CACHE_SYS_RESOURCE,
-				Constant.CACHE_USER_MENU + sysUser.getId());
-		if (userMenus == null) {
-			Map<String, SysResource> userResources = getUserResources();
-			userMenus = Lists.newArrayList();
-			for(SysResource res : userResources.values()){
-				if(Constant.RESOURCE_TYPE_MENU.equals(res.getType())){
-					userMenus.add(res);
+		List<SysResource> userMenus =null; 
+		List<List<SysResource>> menuList=null;
+		if (menuList == null) {
+			Map<Long,LinkedHashMap<String, SysResource>> userResources = getUserResources();
+			
+			menuList=new ArrayList<List<SysResource>>();
+			for(Map<String, SysResource> res1 :userResources.values()){
+				userMenus = Lists.newArrayList();
+				for(SysResource res : res1.values()){
+					if(Constant.RESOURCE_TYPE_MENU.equals(res.getType())){
+						userMenus.add(res);
+					}
 				}
+				
+				userMenus = TreeUtils.toTreeNodeList(userMenus,SysResource.class);
+				menuList.add(userMenus);
 			}
-			userMenus = TreeUtils.toTreeNodeList(userMenus,SysResource.class);
+			
+			
 			CacheUtils.put(Constant.CACHE_SYS_RESOURCE,
-					Constant.CACHE_USER_MENU + sysUser.getId(), userMenus);
+					Constant.CACHE_USER_MENU + sysUser.getId(), menuList);
 		}
-		return userMenus;
+		return menuList;
 	}
 	
 	/**
@@ -362,13 +390,7 @@ public class SysUserUtils {
 		return null;
 	}
 
-	/**
-	 * 得到当前session
-	 */
-	public static HttpSession getSession() {
-		HttpSession session = getCurRequest().getSession();
-		return session;
-	}
+	
 	
 	/**
 	 * session中的用户
@@ -377,6 +399,13 @@ public class SysUserUtils {
 		return (SysUser) getSession().getAttribute(Constant.SESSION_LOGIN_USER);
 	}
 	
+	/**
+	 * 得到当前session
+	 */
+	public static HttpSession getSession() {
+		HttpSession session = getCurRequest().getSession();
+		return session;
+	}
 	/**
 	 * @Title: getCurRequest
 	 * @Description:(获得当前的request) 

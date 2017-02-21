@@ -29,7 +29,7 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
+	<bean class="com.zs.pig.common.spring.utils.SpringContextUtil"></bean>
 	<!-- 启用aop注解 -->
 	<aop:aspectj-autoproxy expose-proxy="true"/>
 	

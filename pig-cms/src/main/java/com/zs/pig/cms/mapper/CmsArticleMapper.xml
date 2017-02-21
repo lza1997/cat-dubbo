@@ -6,4 +6,6 @@
 		id,color,content,createdate,description,hits,htmlid,image,isword,keywords,title,weight,category_id,delflag,updatedate,createby_id,updateby_id
 	</sql>
 
+	<!-- 菜单管理分页显示筛选查询 -->
+	
 </mapper>

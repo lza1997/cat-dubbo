@@ -1,4 +1,5 @@
-    <%@ page language="java" contentType="text/html; charset=utf-8"
+    <%@page import="com.zs.pig.common.Symphonys"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
              pageEncoding="utf-8"%>
         <%@ page import="java.util.Properties" %>
         <%@ page import="java.util.List" %>
@@ -14,12 +15,13 @@
 request.setCharacterEncoding( Uploader.ENCODEING );
 response.setCharacterEncoding( Uploader.ENCODEING );
 
-String currentPath = request.getRequestURI().replace( request.getContextPath(), "" );
+String currentPath = Symphonys.get("upload_path");
+//request.getRequestURI().replace( request.getContextPath(), "" );
 
 File currentFile = new File( currentPath );
 
-currentPath = currentFile.getParent() + File.separator;
-//System.out.println("=================="+currentPath);
+currentPath = currentFile + File.separator;
+System.out.println("=================="+currentPath);
 //加载配置文件
 //String propertiesPath = request.getSession().getServletContext().getRealPath( currentPath + "config.properties" );
 String propertiesPath = request.getRealPath("/static/ueditor/jsp/config.properties");
@@ -75,9 +77,11 @@ if ( dir == null || "".equals( dir ) ) {
 
     //赋予默认值
     dir = savePath.get( 0 );
+    System.out.print("{'url':'"+up.getUrl()+"','fileType':'"+up.getType()+"','state':'"+up.getState()+"','original':'"+up.getOriginalName()+"'}");
 
     //安全验证
 } else if ( !savePath.contains( dir ) ) {
+	System.out.print("{'url':'"+up.getUrl()+"','fileType':'"+up.getType()+"','state':'"+up.getState()+"','original':'"+up.getOriginalName()+"'}");
 
     response.getWriter().print( "{'state':'\\u975e\\u6cd5\\u4e0a\\u4f20\\u76ee\\u5f55'}" );
     return;

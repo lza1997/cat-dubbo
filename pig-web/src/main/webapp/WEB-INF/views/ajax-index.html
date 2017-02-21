@@ -1,0 +1,9 @@
+var shortcut = [
+ @for(menu in menuList!){
+	 @if(menuLP.last){
+		[${menu.id},"${menu.name}","/static/WebDesktop/images/i/icon11.png","${menu.id}",1024,500]
+	 @}else{ 
+	 [${menu.id},"${menu.name}","/static/WebDesktop/images/i/icon11.png","${menu.id}",1024,500],
+	 @}			
+@}
+];

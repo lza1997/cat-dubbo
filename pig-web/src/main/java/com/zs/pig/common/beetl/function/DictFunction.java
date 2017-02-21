@@ -7,7 +7,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.google.common.collect.Table;
+import com.zs.pig.common.constant.ZsCatConstant;
+import com.zs.pig.common.redis.test.RedisUtils;
 import com.zs.pig.common.sys.model.SysDict;
 import com.zs.pig.web.sys.service.SysDictService;
 
@@ -39,6 +43,20 @@ public class DictFunction{
 		return (List<SysDict>) sysDictService.findAllMultimap().get(type);
 	}
 	
+	/**
+	 * 根据类型得到字典列表
+	* @param type 如sys_data_scope等
+	 */
+	public List<SysDict> getDictListByTypeAndSite(String type){
+		SysDict sysdict=new SysDict();
+		sysdict.setCreateBy(RedisUtils.get(ZsCatConstant.SITEID, "1"));
+		List<SysDict> dictList = sysDictService.select(sysdict);
+		Multimap<String, SysDict> multimap = ArrayListMultimap.create();
+		for(SysDict dict : dictList){
+			multimap.put(dict.getType(), dict);
+		}
+		return (List<SysDict>) multimap.get(type);
+	}
 	/**
 	 * 全部字典
 	 */

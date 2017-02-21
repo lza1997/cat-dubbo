@@ -16,7 +16,7 @@
         <druid.version>0.2.23</druid.version>
         <log4j.version>1.2.16</log4j.version>
     </properties>
-  <name>pig-web Maven Webapp</name>
+  <name>pig-web </name>
   <url>http://maven.apache.org</url>
   <dependencies>
     
@@ -69,6 +69,12 @@
 			<artifactId>pig-cms-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.zs.pig</groupId>
+			<artifactId>pig-blog-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>com.zs.pig</groupId>
 			<artifactId>pig-oa-api</artifactId>
@@ -111,10 +117,7 @@
 		</dependency>
 		
 		
-		<dependency>
-			<groupId>org.beetl</groupId>
-			<artifactId>beetl-core</artifactId>
-		</dependency>
+		
 			<!-- Jackson Json处理工具包 -->
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
@@ -170,7 +173,6 @@
 		</dependency>
 
 	
-
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -310,7 +312,7 @@
 		</profile>
 	</profiles>
 	<build>
-		<finalName>pig-web-${mavenDir}</finalName>
+		<finalName>pig-web</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>

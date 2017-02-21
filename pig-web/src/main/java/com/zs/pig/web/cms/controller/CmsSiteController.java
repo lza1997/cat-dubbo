@@ -6,13 +6,18 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.zs.pig.cms.api.model.CmsSite;
 import com.zs.pig.cms.api.service.CmsSiteService;
+import com.zs.pig.common.constant.ZsCatConstant;
+import com.zs.pig.common.redis.test.RedisUtils;
+import com.zs.pig.web.cms.util.CmsUtil;
 	/**
 	 * 
 	 * @author zs 2016-5-24 21:51:02
@@ -26,6 +31,14 @@ public class CmsSiteController {
 
 	@Resource
 	private CmsSiteService CmsSiteService;
+	
+	
+		@RequestMapping("/changeSite/{id}")
+		public String house(@RequestParam(value = "id",required=false,defaultValue="1") Long id,
+				@ModelAttribute CmsSite CmsSite)throws Exception{
+		RedisUtils.set(ZsCatConstant.SITEID, CmsSite.getId()+"");
+		return "cms/cmsSite/cmsSite";
+	}
 	
 	@RequestMapping
 	public String toCmsSite(Model model){

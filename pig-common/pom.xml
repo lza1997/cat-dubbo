@@ -7,7 +7,6 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
   <artifactId>pig-common</artifactId>
-  <groupId>com.zs.pig</groupId>
   <packaging>jar</packaging>
 
   <name>pig-common</name>
@@ -15,11 +14,19 @@
 
   <properties>
 		<jdk.version>1.7</jdk.version>
+		<!-- <beetl.version>2.2.1</beetl.version> -->
+		<beetl.version>2.2.1</beetl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<commons-net.version>3.3</commons-net.version>
 		<commons-compress.version>1.7</commons-compress.version>
 	</properties>
 	<dependencies>
+	
+	<dependency>
+	    <groupId>com.github.abel533</groupId>
+	    <artifactId>DBMetadata-core</artifactId>
+	    <version>0.1.2</version>
+	</dependency>
 	<!--JPA -->
 		<dependency>
 			<groupId>javax.persistence</groupId>
@@ -31,6 +38,11 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.4.2</version>
 		</dependency>
+		 <dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.2</version>
+			</dependency>
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
@@ -222,10 +234,21 @@
 			<artifactId>spring-test</artifactId>
 		</dependency>
 		
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>org.beetl</groupId>
 			<artifactId>beetl-core</artifactId>
+			<version>${beetl.version}</version>
+		</dependency> -->
+		<dependency>
+		    <groupId>com.ibeetl</groupId>
+		    <artifactId>beetl</artifactId>
+		    <version>2.7.1</version>
 		</dependency>
+		<!-- google java library -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+			</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>

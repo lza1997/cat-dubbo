@@ -21,6 +21,7 @@ public class Constant {
 
 	// 用户
 	public static final String SESSION_LOGIN_USER = "loginUser"; // session中的用户key
+	public static final String SESSION_LOGIN_Blooger = "SESSION_LOGIN_Blooger"; // session中的用户key
 	public static final String SUPER_ADMIN = "1"; // 超级管理员
 
 	// 缓存key

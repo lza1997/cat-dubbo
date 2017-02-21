@@ -24,6 +24,8 @@
 	<dubbo:service interface="com.zs.pig.cms.api.service.CmsCommentService" ref="CmsCommentService" registry="pig"/>
 	<dubbo:service interface="com.zs.pig.cms.api.service.CmsLinkService" ref="CmsLinkService" registry="pig"/>
 	<dubbo:service interface="com.zs.pig.cms.api.service.CmsSiteService" ref="CmsSiteService" registry="pig"/>
+	<dubbo:service interface="com.zs.pig.cms.api.service.CmsImgService" ref="CmsImgService" registry="pig"/>
+	
 	
 	<dubbo:service interface="com.zs.pig.cms.api.service.GwInfoService" ref="GwInfoService" registry="pig"/>
 	<dubbo:service interface="com.zs.pig.cms.api.service.NavService" ref="NavService" registry="pig"/>

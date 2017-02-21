@@ -1,4 +1,4 @@
-package com.zs.pig.common.service;
+/*package com.zs.pig.common.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -35,14 +35,14 @@ public class ApiService implements BeanFactoryAware {
     @Autowired(required = false)
     private RequestConfig requestConfig;
 
-    /**
+    *//**
      * 执行GET请求，响应200返回内容，404返回null
      * 
      * @param url
      * @return
      * @throws ClientProtocolException
      * @throws IOException
-     */
+     *//*
     public String doGet(String url) throws ClientProtocolException, IOException {
         // 创建http GET请求
         HttpGet httpGet = new HttpGet(url);
@@ -63,7 +63,7 @@ public class ApiService implements BeanFactoryAware {
         return null;
     }
 
-    /**
+    *//**
      * 带有参数的GET请求，响应200返回内容，404返回null
      * 
      * @param url
@@ -72,7 +72,7 @@ public class ApiService implements BeanFactoryAware {
      * @throws ClientProtocolException
      * @throws IOException
      * @throws URISyntaxException
-     */
+     *//*
     public String doGet(String url, Map<String, String> params) throws ClientProtocolException, IOException,
             URISyntaxException {
         URIBuilder builder = new URIBuilder(url);
@@ -82,14 +82,14 @@ public class ApiService implements BeanFactoryAware {
         return doGet(builder.build().toString());
     }
 
-    /**
+    *//**
      * 执行post请求
      * 
      * @param url
      * @param params
      * @return
      * @throws IOException
-     */
+     *//*
     public HttpResult doPost(String url, Map<String, String> params) throws IOException {
         // 创建http POST请求
         HttpPost httpPost = new HttpPost(url);
@@ -118,14 +118,14 @@ public class ApiService implements BeanFactoryAware {
         }
     }
 
-    /**
+    *//**
      * 执行post请求，发送json数据
      * 
      * @param url
      * @param json
      * @return
      * @throws IOException
-     */
+     *//*
     public HttpResult doPostJson(String url, String json) throws IOException {
         // 创建http POST请求
         HttpPost httpPost = new HttpPost(url);
@@ -159,3 +159,4 @@ public class ApiService implements BeanFactoryAware {
         this.beanFactory = beanFactory;
     }
 }
+*/

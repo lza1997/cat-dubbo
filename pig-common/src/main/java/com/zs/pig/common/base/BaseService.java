@@ -28,7 +28,8 @@ public interface BaseService<T extends BaseEntity> {
 	* @param <T extend T>
 	 */
     public T selectByPrimaryKey(Object key);
-
+    
+    public T selectOne(T record);
     /**
 	 *  插入一条数据
 	*	支持Oracle序列,UUID,类似Mysql的INDENTITY自动增长(自动回写)
@@ -88,4 +89,5 @@ public interface BaseService<T extends BaseEntity> {
     public int beforeDeleteTreeStructure(Object id,String Field,Class<?>... beans);
     
     public PageInfo<T> selectPage(int pageNum,int pageSize,T record);
+    public PageInfo<T> selectPage(int pageNum,int pageSize,T record,String orderStr);
 }

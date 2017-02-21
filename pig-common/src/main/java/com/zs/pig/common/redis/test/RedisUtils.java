@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.zs.pig.common.utils.StringUtil;
+
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -17,7 +19,7 @@ import redis.clients.jedis.JedisPoolConfig;
  */
 public class RedisUtils {
   
-  private JedisPool pool = null;
+  private static JedisPool pool = null;
   
   public static void main(String[] args) {
 	  RedisUtils RedisUtil=new RedisUtils();
@@ -44,6 +46,22 @@ public class RedisUtils {
      
         
   } 
+  static { 
+	  if (pool == null) {
+	      JedisPoolConfig config = new JedisPoolConfig();
+	      // 控制一个pool可分配多少个jedis实例，通过pool.getResource()来获取；
+	      // 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
+	    //  config.setMaxActive(500);
+	      // 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例。
+	      config.setMaxIdle(5);
+	      // 表示当borrow(引入)一个jedis实例时，最大的等待时间，如果超过等待时间，则直接抛出JedisConnectionException；
+	  //    config.setMaxWait(1000 * 100);
+	      // 在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的；
+	      config.setTestOnBorrow(true);
+	       pool = new JedisPool(config, "localhost", 6379, 100000);
+	   //   pool = new JedisPool(config, RedisProperty.getIp(), RedisProperty.getPort(), 100000);
+	    }
+  }
   /**
    * <p>传入ip和端口号构建redis 连接池</p>
    * @param ip ip
@@ -107,7 +125,7 @@ public class RedisUtils {
    * @param key
    * @return 成功返回value 失败返回null
    */
-  public String get(String key){
+  public static String get(String key){
     Jedis jedis = null;
     String value = null;
     try {
@@ -121,7 +139,29 @@ public class RedisUtils {
     }
     return value;
   }
-  
+  /**
+   * <p>通过key获取储存在redis中的value</p>
+   * <p>并释放连接</p>
+   * @param key
+   * @return 成功返回value 失败返回null
+   */
+  public static String get(String key,String defalut){
+    Jedis jedis = null;
+    String value = null;
+    try {
+      jedis = pool.getResource();
+      value = jedis.get(key);
+      if(StringUtil.isEmpty(value)){
+    	  return defalut;
+      }
+    } catch (Exception e) {
+      pool.returnBrokenResource(jedis);
+      e.printStackTrace();
+    } finally {
+      returnResource(pool, jedis);
+    }
+    return value;
+  }
   /**
    * <p>向redis存入key和value,并释放连接资源</p>
    * <p>如果key已经存在 则覆盖</p>
@@ -129,7 +169,7 @@ public class RedisUtils {
    * @param value
    * @return 成功 返回OK 失败返回 0
    */
-  public String set(String key,String value){
+  public static String set(String key,String value){
     Jedis jedis = null;
     try {
       jedis = pool.getResource();
@@ -1698,7 +1738,7 @@ public class RedisUtils {
    * @param pool
    * @param redis
    */
-  public  void returnResource(JedisPool pool, Jedis jedis) {
+  public static void returnResource(JedisPool pool, Jedis jedis) {
     if (jedis != null) {
       pool.returnResource(jedis);
     }

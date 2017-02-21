@@ -9,36 +9,25 @@
 					<td class="ui-state-error" id="FormError"></td>
 				</tr>
 				<tr class="FormData">
-					<td class="CaptionTD">标签</td>
+					<td class="CaptionTD">链接名</td>
 					<td class="DataTD width-100"><input type="text"
-						name="label" datatype="*"  nullmsg="请输入标签！"
-						value="${link.label!}"></td>
+						name="linkname" datatype="*"  nullmsg="请输入标签！"
+						value="${link.linkname!}"></td>
 				</tr>
 				<tr class="FormData">
-					<td class="CaptionTD">键值</td>
+					<td class="CaptionTD">链接地址</td>
 					<td class="DataTD width-100"><input type="text"
-						name="value" datatype="*"  nullmsg="请输入键值！"
-						value="${link.value!}"></td>
+						name="linkurl" datatype="*"  nullmsg="请输入键值！"
+						value="${link.linkurl!}"></td>
 				</tr>
-				<tr class="FormData">
-					<td class="CaptionTD">类型</td>
-					<td class="DataTD width-100">
-					<input type="text" value="${link.type!}" name="type"/>
-					</td>
-				</tr>
+				
 				<tr class="FormData">
 					<td class="CaptionTD">排序</td>
 					<td class="DataTD">
-					<input type="text" value="${link.sort!}" name="sort"/>
+					<input type="text" value="${link.orderno!}" name="orderno"/>
 					</td>
 				</tr>
-				<tr class="FormData">
-					<td class="CaptionTD">描述</td>
-					<td class="DataTD">
-						<textarea name="description" class="autosize-transition form-control "
-						style="resize: none;">${link.description!}</textarea>	
-					</td>
-				</tr>
+				
 			</tbody>
 		</table>
 	</form>

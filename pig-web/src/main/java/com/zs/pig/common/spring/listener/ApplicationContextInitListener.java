@@ -57,7 +57,7 @@ public class ApplicationContextInitListener implements
 			//读取全部资源
 			LinkedHashMap<String, SysResource> AllResourceMap = sysResourceService.getAllResourcesMap();
 			BeetlUtils.addBeetlSharedVars(Constant.CACHE_ALL_RESOURCE,AllResourceMap);
-			
+		//	BeetlUtils.addBeetlSharedVars("imgserver",AllResourceMap); 页面里面用 ${imgserver} 可以取到吗
 			//初始化任务调度
 		//	maintainTaskDefinitionService.initTask();
 			

@@ -29,7 +29,13 @@ public  class ServiceMybatis<T extends BaseEntity> implements BaseService<T> {
 	@Resource
 	protected BaseMapper baseMapper;
 	
-	
+	public T selectOne(T record) {
+		if(mapper.select(record)!=null && mapper.select(record).size()>0){
+			return mapper.select(record).get(0);
+		}
+		return null;
+		
+	}
 	/**
 	 * 根据实体类不为null的字段进行查询,条件全部使用=号and条件
 	 * @param <T extend T>

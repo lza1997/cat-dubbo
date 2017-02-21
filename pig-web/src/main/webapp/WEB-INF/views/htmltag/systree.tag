@@ -107,6 +107,7 @@
 		$("#${form}").find("input[name=name]").val("");
 		var treeObj = $.fn.zTree.getZTreeObj("treeMenu");
 		$("#${form}").find("input[id=otherSid]").val(treeNode.id);
+		$("#${form}").find("input[id=otherSid1]").val(treeNode.name);
 		paging("${form}",1); //刷新表单
 		for(var i=0, l=nodeList.length; i<l; i++) {
 			nodeList[i].highlight = false;				

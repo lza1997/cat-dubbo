@@ -10,6 +10,8 @@ import com.zs.pig.cms.api.model.CmsCategory;
 import com.zs.pig.cms.api.service.CmsCategoryService;
 import com.zs.pig.cms.mapper.CmsCategoryMapper;
 import com.zs.pig.common.base.ServiceMybatis;
+import com.zs.pig.common.constant.ZsCatConstant;
+import com.zs.pig.common.redis.test.RedisUtils;
 
 /**
  * 
@@ -30,6 +32,7 @@ public class CmsCategoryServiceImpl extends ServiceMybatis<CmsCategory> implemen
 	 * @return
 	 */
 	public int savecmsCategory(CmsCategory CmsCategory) {
+		CmsCategory.setSiteId(Long.parseLong(RedisUtils.get(ZsCatConstant.SITEID,"1")));
 		return this.save(CmsCategory);
 	}
 
