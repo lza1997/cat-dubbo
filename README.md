@@ -14,6 +14,11 @@ zscat普通群
 zsCat vip群 
 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=3440b6c11bbf3562bf38ea117cad2573188f1158a15d5397e48b6d4eb48fe587"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="zsCat vip群" title="zsCat vip群"></a>
 
+部署dubboAdmin 监控dubbo服务
+![输入图片说明](http://git.oschina.net/uploads/images/2017/0221/165923_17cb6ef1_134431.png "在这里输入图片标题")
+
+更新
+ 添加kafka  storm
 文档地址   http://git.oschina.net/catshen/zscatDocument
 ![输入图片说明](http://git.oschina.net/uploads/images/2016/1029/122812_c0278625_134431.png "在这里输入图片标题")
 ![输入图片说明](http://git.oschina.net/uploads/images/2016/1029/122847_c1c15724_134431.png "在这里输入图片标题")
