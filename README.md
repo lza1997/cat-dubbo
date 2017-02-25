@@ -1,4 +1,6 @@
 #cat
+
+motan版本  http://git.oschina.net/catshen/zsWing
 学习资料和视频  https://pan.baidu.com/s/1jIoLf9O
 演示地址  http://www.zscat.top/gw/index
 演示地址  http://www.zscat.top/front
@@ -10,7 +12,7 @@ http://www.zscat.top/wap1
 
 zscat普通群
 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=091b808b670b3f825b101f386ad6e0a7a0b1d7cef1f11a66120c866affcac80c"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="开源分布式框架(2) zsCat" title="开源分布式框架(2) zsCat"></a>
-<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=29ca1c14c4d73e4e4c843a189bc7d84940fd750b8fc1304070af6de02524e9a9"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="zsCat分布式开发" title="zsCat分布式开发"></a>
+
 zsCat vip群 
 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=3440b6c11bbf3562bf38ea117cad2573188f1158a15d5397e48b6d4eb48fe587"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="zsCat vip群" title="zsCat vip群"></a>
 
