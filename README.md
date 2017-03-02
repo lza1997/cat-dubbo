@@ -1,5 +1,5 @@
 #cat
-
+kafka跟storm收集日志解决方案 请查看附件
 motan版本  http://git.oschina.net/catshen/zsWing
 学习资料和视频  https://pan.baidu.com/s/1jIoLf9O
 演示地址  http://www.zscat.top/gw/index
